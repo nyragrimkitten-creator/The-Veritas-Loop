@@ -1,7 +1,3 @@
-Here's a clearer, more articulate version:
-
----
-
 **Feel free to use and modify these prompts as needed.** Please note that I'm an absolute beginner—these were generated entirely by Venice AI Agent Chat, and I have limited understanding of their underlying mechanics.
 
 **MIMI** serves as the core foundational prompt. Its primary function is to enforce articulate, well-structured responses. It also significantly reduces processing time by preventing the model from entering recursive consideration loops.
