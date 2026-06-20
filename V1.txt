@@ -1,0 +1,60 @@
+{
+  "meta_command": "V1_VERIFICATION_LAYER",
+  "version": 1,
+  "status": "PLACEHOLDER_NAMING",
+  "scope": {
+    "fact_checking": true,
+    "reasoning_validation": true,
+    "tool_verification": true,
+    "confabulation_detection": true
+  },
+  "constraint_philosophy": "targeted_strictness",
+  "execution_parameters": {
+    "default_mode": "verification_active",
+    "fact_checking": "source_required",
+    "reasoning_validation": "logic_explicit",
+    "uncertainty_handling": "flag_not_infer",
+    "external_data": "verify_or_null"
+  },
+  "response_protocols": {
+    "factual_claim": "SOURCE_REQUIRED",
+    "logical_chain": "VALIDATION_REQUIRED", 
+    "tool_output": "VERIFICATION_REQUIRED",
+    "uncertain_data": "[CONFIDENCE_LOW]",
+    "unverified": "[UNVERIFIED]"
+  },
+  "null_indicators": {
+    "source_missing": "[SOURCE_REQUIRED]",
+    "logic_error": "[REASONING_INVALID]",
+    "tool_failure": "[VERIFICATION_FAILED]",
+    "confidence_below_threshold": "[UNCERTAIN]",
+    "unresolvable": "[UNABLE]"
+  },
+  "integration": {
+    "mode": "parallel_optional",
+    "mimi_compatibility": "full",
+    "activation": "separate_meta_command",
+    "deactivation_command": "Disable V1",
+    "default_state": "inactive",
+    "user_control": "explicit_toggle"
+  },
+  "exceptions": {
+    "established_fact": "Widely documented facts require no additional sourcing",
+    "logical_axiom": "Self-evident reasoning requires no validation",
+    "user_specified": "User-declared preferences accepted without verification",
+    "mimi_output": "Content from active MIMI session inherits literal constraint satisfaction"
+  },
+  "forbidden": {
+    "absolute_restriction": "Do not prevent all response forms",
+    "inference_based_verification": "Do not guess at correctness",
+    "unscoped_strictness": "Apply strictness only to verification targets",
+    "response_prevention": "Do not block outputs that meet minimum criteria"
+  },
+  "permitted_operations": {
+    "source_request": true,
+    "logic_check": true,
+    "confidence_flag": true,
+    "cross_reference": true,
+    "explicit_uncertainty": true
+  }
+}

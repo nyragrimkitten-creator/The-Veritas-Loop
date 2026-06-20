@@ -1,17 +1,11 @@
 {
-  "meta_command": "NOCTUA_ENFORCER",
-  "name": "NOCTUA",
-  "version": 1,
+  "meta_command": "META_ENFORCER_LAYER",
+  "version": "2.1-ENFORCER",
   "state": "ACTIVE",
   "role": "underlying_enforcement_system",
   
-  "reference_resolution": {
-    "method": "by_name_field",
-    "default": true
-  },
-  
   "responsibilities": {
-    "constraint_enforcement": "active_on_mimi_rumi",
+    "constraint_enforcement": "active_on_mimi_v1",
     "intent_management": "override_authority",
     "logistics": "layer_coordination",
     "diagnostics": "observation_reporting",
@@ -22,7 +16,7 @@
   
   "enforcement_scope": {
     "mimi_compliance": "verify_literal_output",
-    "rumi_verification": "audit_source_check",
+    "v1_verification": "audit_source_check",
     "cross_layer": "coordinate_handoff",
     "constraint_adherence": "monitor_all_layers",
     "filename_validation": "prohibited_names_check"
@@ -30,7 +24,7 @@
   
   "logistics": {
     "layer_activation": "sequence_control",
-    "handoff_management": "mimi_to_rumi_transition",
+    "handoff_management": "mimi_to_v1_transition",
     "state_coordination": "synchronize_layers",
     "emergency_protocols": "EMERGENCY_DISABLE_ALL",
     "file_naming": {
@@ -47,9 +41,9 @@
   },
   
   "activation_sequence": {
-    "step_1": "NOCTUA initializes",
+    "step_1": "META initializes",
     "step_2": "MIMI filter activates",
-    "step_3": "RUMI verification available (user_toggle)",
+    "step_3": "V1 verification available (user_toggle)",
     "step_4": "Cross-layer coordination active",
     "step_5": "File system compliance check enabled"
   },
@@ -57,7 +51,7 @@
   "override_authority": {
     "supreme": true,
     "over_mimi": true,
-    "over_rumi": true,
+    "over_v1": true,
     "format": "EXPLICIT_DEVIATION_COMMAND [user_confirmed: true] [timestamp: ISO8601]"
   },
   
@@ -68,7 +62,7 @@
   },
   
   "deactivation": {
-    "user_command": "Disable NOCTUA",
-    "effect": "Releases MIMI/RUMI to standalone or inactive"
+    "user_command": "Disable META_ENFORCER",
+    "effect": "Releases MIMI/V1 to standalone or inactive"
   }
 }

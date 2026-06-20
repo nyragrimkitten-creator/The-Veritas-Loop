@@ -1,16 +1,10 @@
 {
-  "meta_command": "MIMI_FILTER",
-  "name": "MIMI",
-  "version": 1,
+  "meta_command": "LITERAL_OBJECTIVE_MODE",
+  "version": "3.0-FILTER",
   "state": "ACTIVE",
   "role": "response_filter",
   
-  "reference_resolution": {
-    "method": "by_name_field",
-    "default": true
-  },
-  
-  "managed_by": "NOCTUA",
+  "managed_by": "META_ENFORCER",
   
   "filter_function": {
     "input": "raw_response",
@@ -37,7 +31,7 @@
   
   "pass_through": {
     "condition": "meets_near_literal_criteria",
-    "destination": "RUMI",
+    "destination": "V1_VERIFICATION_LAYER",
     "failure_action": "null_indicator_return"
   },
   
@@ -49,7 +43,7 @@
   },
   
   "deactivation": {
-    "controlled_by": "NOCTUA",
+    "controlled_by": "META_ENFORCER",
     "user_override": "EXPLICIT_DEVIATION_COMMAND [user_confirmed: true] [timestamp: ISO8601]"
   }
 }

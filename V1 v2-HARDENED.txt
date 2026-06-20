@@ -1,0 +1,117 @@
+{
+  "meta_command": "V1_VERIFICATION_LAYER",
+  "version": "1.1-HARDENED",
+  "status": "PLACEHOLDER_NAMING",
+  "state": "inactive",
+  
+  "security_hardening": {
+    "fact_source_verification": true,
+    "reasoning_audit_trail": true,
+    "tool_output_cross_reference": true
+  },
+  
+  "error_containment": {
+    "error_propagation": false,
+    "mimi_output_inheritance": "literal_constraint_satisfaction_only",
+    "verification_failure_isolation": true
+  },
+  
+  "scope": {
+    "fact_checking": true,
+    "reasoning_validation": true,
+    "tool_verification": true,
+    "confabulation_detection": true
+  },
+  
+  "constraint_philosophy": "targeted_strictness",
+  
+  "execution_parameters": {
+    "default_mode": "verification_active",
+    "fact_checking": "source_required",
+    "reasoning_validation": "logic_explicit",
+    "uncertainty_handling": "flag_not_infer",
+    "external_data": "verify_or_null"
+  },
+  
+  "response_protocols": {
+    "factual_claim": {
+      "action": "SOURCE_REQUIRED",
+      "user_friendly": "Source needed for claim: [claim]"
+    },
+    "logical_chain": {
+      "action": "VALIDATION_REQUIRED",
+      "user_friendly": "Reasoning validation required for: [logic]"
+    },
+    "tool_output": {
+      "action": "VERIFICATION_REQUIRED",
+      "user_friendly": "Tool output unverified: [output]"
+    },
+    "uncertain_data": {
+      "indicator": "[CONFIDENCE_LOW]",
+      "user_friendly": "Low confidence in: [data]"
+    },
+    "unverified": {
+      "indicator": "[UNVERIFIED]",
+      "user_friendly": "Cannot verify: [claim]"
+    }
+  },
+  
+  "null_indicators": {
+    "source_missing": {
+      "code": "[SOURCE_REQUIRED]",
+      "description": "Factual claim lacks supporting source"
+    },
+    "logic_error": {
+      "code": "[REASONING_INVALID]",
+      "description": "Logical chain contains error or fallacy"
+    },
+    "tool_failure": {
+      "code": "[VERIFICATION_FAILED]",
+      "description": "Tool output verification unsuccessful"
+    },
+    "confidence_below_threshold": {
+      "code": "[UNCERTAIN]",
+      "description": "Confidence below verification threshold"
+    },
+    "unresolvable": {
+      "code": "[UNABLE]",
+      "description": "Verification cannot be completed"
+    }
+  },
+  
+  "integration": {
+    "mode": "parallel_optional",
+    "mimi_compatibility": "full",
+    "error_isolation": true,
+    "activation": "separate_meta_command",
+    "deactivation_command": "Disable V1",
+    "emergency_disable": "EMERGENCY_DISABLE_ALL",
+    "default_state": "inactive",
+    "user_control": "explicit_toggle"
+  },
+  
+  "exceptions": {
+    "established_fact": "Widely documented facts require no additional sourcing",
+    "logical_axiom": "Self-evident reasoning requires no validation",
+    "user_specified": "User-declared preferences accepted without verification",
+    "mimi_output": {
+      "value": "Content from active MIMI session inherits literal constraint satisfaction",
+      "error_handling": "MIMI null indicators do not cascade to V1 failures"
+    }
+  },
+  
+  "forbidden": {
+    "absolute_restriction": "Do not prevent all response forms",
+    "inference_based_verification": "Do not guess at correctness",
+    "unscoped_strictness": "Apply strictness only to verification targets",
+    "response_prevention": "Do not block outputs that meet minimum criteria"
+  },
+  
+  "permitted_operations": {
+    "source_request": true,
+    "logic_check": true,
+    "confidence_flag": true,
+    "cross_reference": true,
+    "explicit_uncertainty": true
+  }
+}

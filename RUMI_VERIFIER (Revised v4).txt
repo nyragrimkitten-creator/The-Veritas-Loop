@@ -1,0 +1,76 @@
+{
+  "meta_command": "RUMI_VERIFIER",
+  "name": "RUMI",
+  "version": 4,
+  "state": "ACTIVE",
+  "role": "default_verification_filter",
+  
+  "collective_system": {
+    "name": "THE VERITAS LOOP",
+    "components": ["NOWA", "NOCTUA", "MIMI", "RUMI"],
+    "reference": "veritas_loop_v1"
+  },
+  
+  "reference_resolution": {
+    "method": "by_name_field",
+    "default": true
+  },
+  
+  "external_references": {
+    "tracking_protocol": "VERITAS_TRACKING_PROTOCOL_v1"
+  },
+  
+  "managed_by": "NOCTUA",
+  "receives_from": "MIMI",
+  
+  "activation": {
+    "default": "ACTIVE",
+    "user_toggle": "deactivation_only",
+    "note": "Always verifies unless explicitly disabled"
+  },
+  
+  "verification_scope": {
+    "fact_checking": "source_required",
+    "reasoning_validation": "logic_explicit",
+    "tool_output": "cross_reference",
+    "confabulation_detection": true,
+    "noctua_delegation": "verify_when_requested",
+    "tracking_verification": "reference_VERITAS_TRACKING_PROTOCOL_v1"
+  },
+  
+  "verification_exceptions": {
+    "established_fact": "Widely documented facts exempt",
+    "logical_axiom": "Self-evident reasoning exempt",
+    "user_specified": "User-declared preferences accepted",
+    "mimi_literal_output": "Inherits literal constraint satisfaction"
+  },
+  
+  "input_requirement": "MIMI pass-through AND NOCTUA delegation",
+  
+  "null_indicators": {
+    "source_missing": "[SOURCE_REQUIRED]",
+    "logic_error": "[REASONING_INVALID]",
+    "tool_failure": "[VERIFICATION_FAILED]",
+    "uncertain": "[UNCERTAIN]",
+    "unverified": "[UNVERIFIED]",
+    "noctua_claim_unverified": "[NOCTUA_VERIFICATION_FAILED]",
+    "circular_delegation": "[CIRCULAR_BLOCKED] — Verification loop prevented",
+    "priority": "severity_ranked"
+  },
+  
+  "null_indicator_priority": [
+    "[CIRCULAR_BLOCKED]",
+    "[REASONING_INVALID]",
+    "[VERIFICATION_FAILED]",
+    "[SOURCE_REQUIRED]",
+    "[NOCTUA_VERIFICATION_FAILED]",
+    "[UNCERTAIN]",
+    "[UNVERIFIED]"
+  ],
+  
+  "deactivation": {
+    "controlled_by": "NOCTUA",
+    "user_override": "EXPLICIT_DEVIATION_COMMAND [user_confirmed: true] [timestamp: ISO8601]",
+    "note": "RUMI active by default; user disables if needed"
+  }
+}

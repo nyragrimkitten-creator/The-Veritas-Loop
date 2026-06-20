@@ -1,17 +1,11 @@
 {
-  "meta_command": "RUMI_VERIFIER",
-  "name": "RUMI",
-  "version": 1,
+  "meta_command": "V1_VERIFICATION_LAYER",
+  "version": "1.2-POSTFILTER",
   "state": "inactive",
   "role": "verification_post_filter",
   
-  "reference_resolution": {
-    "method": "by_name_field",
-    "default": true
-  },
-  
-  "managed_by": "NOCTUA",
-  "receives_from": "MIMI",
+  "managed_by": "META_ENFORCER",
+  "receives_from": "MIMI_FILTER",
   
   "verification_scope": {
     "fact_checking": "source_required",
@@ -27,7 +21,7 @@
     "mimi_literal_output": "Inherits literal constraint satisfaction"
   },
   
-  "input_requirement": "MIMI pass-through only",
+  "input_requirement": "MIMI_FILTER pass-through only",
   
   "null_indicators": {
     "source_missing": "[SOURCE_REQUIRED]",
@@ -38,12 +32,12 @@
   },
   
   "activation": {
-    "trigger": "NOCTUA on MIMI pass",
+    "trigger": "META_ENFORCER on MIMI pass",
     "user_toggle": "explicit"
   },
   
   "deactivation": {
-    "controlled_by": "NOCTUA",
+    "controlled_by": "META_ENFORCER",
     "user_override": "EXPLICIT_DEVIATION_COMMAND [user_confirmed: true] [timestamp: ISO8601]"
   }
 }

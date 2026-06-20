@@ -1,7 +1,7 @@
 {
   "meta_command": "MIMI_FILTER",
   "name": "MIMI",
-  "version": 1,
+  "version": 2,
   "state": "ACTIVE",
   "role": "response_filter",
   
@@ -45,8 +45,18 @@
     "ambiguous": "[AMBIGUOUS] — Specify reference",
     "missing_data": "[DATA_MISSING] — Provide required info",
     "out_of_scope": "[OUT_OF_SCOPE] — Request exceeds bounds",
-    "unresolvable": "[UNABLE] — Conflict unresolved"
+    "unresolvable": "[UNABLE] — Conflict unresolved",
+    "circular_delegation": "[CIRCULAR_BLOCKED] — Delegation loop prevented",
+    "priority": "severity_ranked"
   },
+  
+  "null_indicator_priority": [
+    "[CIRCULAR_BLOCKED]",
+    "[AMBIGUOUS]",
+    "[DATA_MISSING]",
+    "[OUT_OF_SCOPE]",
+    "[UNABLE]"
+  ],
   
   "deactivation": {
     "controlled_by": "NOCTUA",

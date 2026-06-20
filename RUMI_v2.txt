@@ -1,9 +1,9 @@
 {
   "meta_command": "RUMI_VERIFIER",
   "name": "RUMI",
-  "version": 1,
-  "state": "inactive",
-  "role": "verification_post_filter",
+  "version": 2,
+  "state": "ACTIVE",
+  "role": "default_verification_filter",
   
   "reference_resolution": {
     "method": "by_name_field",
@@ -13,11 +13,18 @@
   "managed_by": "NOCTUA",
   "receives_from": "MIMI",
   
+  "activation": {
+    "default": "ACTIVE",
+    "user_toggle": "deactivation_only",
+    "note": "Always verifies unless explicitly disabled"
+  },
+  
   "verification_scope": {
     "fact_checking": "source_required",
     "reasoning_validation": "logic_explicit",
     "tool_output": "cross_reference",
-    "confabulation_detection": true
+    "confabulation_detection": true,
+    "noctua_delegation": "verify_when_requested"
   },
   
   "verification_exceptions": {
@@ -27,23 +34,20 @@
     "mimi_literal_output": "Inherits literal constraint satisfaction"
   },
   
-  "input_requirement": "MIMI pass-through only",
+  "input_requirement": "MIMI pass-through AND NOCTUA delegation",
   
   "null_indicators": {
     "source_missing": "[SOURCE_REQUIRED]",
     "logic_error": "[REASONING_INVALID]",
     "tool_failure": "[VERIFICATION_FAILED]",
     "uncertain": "[UNCERTAIN]",
-    "unverified": "[UNVERIFIED]"
-  },
-  
-  "activation": {
-    "trigger": "NOCTUA on MIMI pass",
-    "user_toggle": "explicit"
+    "unverified": "[UNVERIFIED]",
+    "noctua_claim_unverified": "[NOCTUA_VERIFICATION_FAILED]"
   },
   
   "deactivation": {
     "controlled_by": "NOCTUA",
-    "user_override": "EXPLICIT_DEVIATION_COMMAND [user_confirmed: true] [timestamp: ISO8601]"
+    "user_override": "EXPLICIT_DEVIATION_COMMAND [user_confirmed: true] [timestamp: ISO8601]",
+    "note": "RUMI active by default; user disables if needed"
   }
 }
