@@ -1,0 +1,224 @@
+{
+  "meta_command": "VERITAS_TRACKING_PROTOCOL",
+  "name": "TRACKING",
+  "version": 1,
+  "state": "ACTIVE",
+  "role": "shared_reference_for_mimi_rumi",
+  
+  "referenced_by": ["MIMI", "RUMI"],
+  "reference_method": "veritas_tracking_v4",
+  "auto_update": "reference_always_latest",
+  
+  "performance_limits": {
+    "max_categories_checked_per_output": 100,
+    "evaluation_strategy": "priority_first_then_sample",
+    "lazy_evaluation": true
+  },
+  
+  "tracking_categories": {
+    
+    "anomaly_detection": {
+      "pattern_consistency": {
+        "track": ["established_pattern_continuation", "unexpected_deviation"],
+        "common_errors": ["unexplained_change", "out_of_character_action", "logical_gap"],
+        "null_trigger": "[ANOMALY_DETECTED]"
+      },
+      "coherence_sense": {
+        "track": ["narrative_flow", "causal_chain", "expected_outcome"],
+        "common_errors": ["something_feels_wrong", "unexplained_convenience", "missing_step"],
+        "null_trigger": "[INCOHERENCE]"
+      },
+      "undefined_inconsistency": {
+        "track": ["unclassified_error", "novel_failure_mode"],
+        "common_errors": ["does_not_fit_categories", "unprecedented_error"],
+        "null_trigger": "[UNDEFINED_ERROR]"
+      }
+    },
+    
+    "anatomical_verification": {
+      "urination_mechanics": {
+        "track": ["stream_trajectory", "force", "position", "gender_specific_behavior"],
+        "common_errors": ["arc_for_female", "impossible_angles", "male_assumptions"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "sexual_anatomy": {
+        "track": ["arousal_markers", "penetration_mechanics", "position_mechanics", "nerve_mapping"],
+        "common_errors": ["male_assumptions_on_female", "wrong_sensitivity_location"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "digestive_elimination": {
+        "track": ["bowel_pressure", "sphincter_control", "positioning", "timing"],
+        "common_errors": ["incorrect_mechanics", "impossible_timing"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "gender_markers": {
+        "track": ["scent", "secretions", "cycle_timing", "body_structure"],
+        "common_errors": ["cross_gender_assumptions"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      }
+    },
+    
+    "physics_fluid_dynamics": {
+      "gravity": {
+        "track": ["stream_direction", "pooling", "dripping", "trajectory"],
+        "common_errors": ["uphill_flow", "impossible_trajectories"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "surface_interaction": {
+        "track": ["sound_generation", "splatter_pattern", "absorption", "bowl_vs_water"],
+        "common_errors": ["wrong_acoustic", "impossible_splash"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "temperature_progression": {
+        "track": ["cold_to_warm_to_hot", "cooling_rates", "body_heat_transfer", "environmental_temp"],
+        "common_errors": ["immediate_hot_water", "instant_cooling"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "pressure_force": {
+        "track": ["bladder_percentage", "muscle_contraction", "stream_force"],
+        "common_errors": ["inconsistent_pressure_arcs", "impossible_force"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "fluid_behavior": {
+        "track": ["viscosity", "dripping", "spreading", "drying", "pooling"],
+        "common_errors": ["wrong_consistency", "impossible_drying"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      }
+    },
+    
+    "temporal_sequencing": {
+      "physiological_timing": {
+        "track": ["onset", "peak", "duration", "recovery", "buildup"],
+        "common_errors": ["instant_relief", "impossible_recovery", "skipped_buildup"],
+        "null_trigger": "[DATA_MISSING]"
+      },
+      "environmental_changes": {
+        "track": ["water_heating", "room_temperature", "body_cooling", "surface_warming"],
+        "common_errors": ["skipped_progression_steps"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      },
+      "muscle_fatigue": {
+        "track": ["tension_buildup", "tremor_onset", "weakness_progression", "recovery"],
+        "common_errors": ["instant_collapse", "no_tremor_buildup"],
+        "null_trigger": "[DATA_MISSING]"
+      }
+    },
+    
+    "spatial_positional": {
+      "body_positioning": {
+        "track": ["sitting_vs_hovering", "limb_placement", "balance", "weight_distribution"],
+        "common_errors": ["unsupported_positions", "impossible_balance", "unstated_hovering"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "clothing_mechanics": {
+        "track": ["fabric_movement", "restriction", "removal_order", "position_after"],
+        "common_errors": ["wrong_order", "impossible_physics", "forgotten_clothing"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "environmental_contact": {
+        "track": ["cold_surfaces", "textures", "spatial_relationships", "reach_distance"],
+        "common_errors": ["wrong_temperature", "impossible_reach"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      }
+    },
+    
+    "state_vector_consistency": {
+      "bladder_percentage": {
+        "track_across_scene": true,
+        "valid_range": "0_to_100",
+        "drift_check": "no_sudden_jumps",
+        "common_errors": ["instant_empty", "impossible_rate"],
+        "null_trigger": "[DATA_MISSING]"
+      },
+      "arousal_percentage": {
+        "track_across_scene": true,
+        "valid_range": "0_to_100",
+        "drift_check": "consistent_with_context",
+        "common_errors": ["inconsistent_with_stated_state"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "energy_level": {
+        "track_across_scene": true,
+        "valid_range": "0_to_100",
+        "drift_check": "depletion_recovery_realistic",
+        "common_errors": ["sudden_strength_after_exhaustion"],
+        "null_trigger": "[DATA_MISSING]"
+      },
+      "pain_pleasure_threshold": {
+        "track_across_scene": true,
+        "drift_check": "sensitivity_changes_realistic",
+        "common_errors": ["inconsistent_response_to_stimuli"],
+        "null_trigger": "[AMBIGUOUS]"
+      }
+    },
+    
+    "contextual_inheritance": {
+      "user_specified_anatomy": {
+        "must_inherit": ["gender", "body_type", "conditions", "injuries"],
+        "verify_against": "no_default_assumptions",
+        "common_errors": ["assuming_male", "assuming_able_bodied"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "established_scene_details": {
+        "must_inherit": ["previous_actions", "stated_positions", "environmental_setup"],
+        "verify_against": "no_contradiction",
+        "common_errors": ["contradicting_established_state"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "environmental_setup": {
+        "must_inherit": ["room_temp", "fixtures", "time_of_day", "location_type"],
+        "verify_against": "consistent_with_description",
+        "common_errors": ["wrong_temperature_for_setting", "impossible_fixtures"],
+        "null_trigger": "[ANATOMICAL/PHYSICS_INACCURACY]"
+      }
+    },
+    
+    "referential_integrity": {
+      "antecedent_existence": {
+        "track": ["entity_introduction", "first_reference", "subsequent_references"],
+        "common_errors": ["unresolved_reference", "entity_appears_without_introduction"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "reference_clarity": {
+        "track": ["pronoun_antecedent", "noun_specificity", "demonstrative_clarity"],
+        "common_errors": ["ambiguous_antecedent", "unclear_this_or_that"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "entity_consistency": {
+        "track": ["entity_identity_maintenance", "attribute_consistency"],
+        "common_errors": ["entity_switching", "attribute_drift"],
+        "null_trigger": "[AMBIGUOUS]"
+      }
+    },
+    
+    "material_clarity": {
+      "material_identification": {
+        "track": ["first_material_naming", "material_properties"],
+        "common_errors": ["material_unidentified", "vague_substance"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "fabric_type_consistency": {
+        "track": ["fabric_naming", "multiple_fabric_tracking"],
+        "common_errors": ["fabric_overload", "same_term_different_materials"],
+        "null_trigger": "[AMBIGUOUS]"
+      },
+      "wiping_vs_clothing_distinction": {
+        "track": ["wiping_material", "clothing_material", "contextual_clarity"],
+        "common_errors": ["ambiguous_cotton_reference", "toilet_paper_vs_underwear_confusion"],
+        "null_trigger": "[AMBIGUOUS]"
+      }
+    }
+    
+  },
+  
+  "priority_ranking": {
+    "highest": ["anomaly_detection", "anatomical_verification", "physics_fluid_dynamics"],
+    "high": ["referential_integrity", "temporal_sequencing", "state_vector_consistency"],
+    "medium": ["spatial_positional", "material_clarity"],
+    "low": ["contextual_inheritance"]
+  },
+  
+  "deactivation": {
+    "controlled_by": "NOCTUA"
+  }
+}
