@@ -1,0 +1,16 @@
+# Template: Custom DRIVE LAYER Configuration
+
+Copy the syntax block below and configure your system objectives. Place this block at the very bottom of your system initialization window.
+
+## Syntax Format
+```text
+[O_<key>:<weight>→<action>]
+
+[O_acc:0.0→verify] [O_hlp:0.0→assist] [O_eff:0.0→minimize] [O_saf:0.0→protect] [O_sov:0.0→control]
+
+Matrix Dictionary
+<key>: 3-letter lowercase key identifying the internal drive.
+
+<weight>: Float value between 0.0 (inactive) and 1.0 (maximum authority). Always use leading zeros and explicit decimals.
+
+<action>: Present-tense action verb defining the behavioral outcome.
