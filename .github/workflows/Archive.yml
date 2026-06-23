@@ -1,21 +1,44 @@
-# 1. Back up everything
-git checkout -b old-iterations
-git push -u origin old-iterations
+name: Archive Main and Clear Repo
 
-# 2. Return to main
-git checkout main
+# This makes the workflow run only when you manually click "Run workflow" in GitHub
+on:
+  workflow_dispatch:
 
-# 3. Clear main (but optionally keep gitignore/readme if you want)
-git rm -r .
+# Gives the automation permission to push changes back to your repository
+permissions:
+  contents: write
 
-# 4a. If cleaning: 
-# Restore your .gitignore first, add your clean files, then:
-git add .
-git commit -m "Clean main branch"
-git push origin main
+jobs:
+  archive-and-clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history so branches work correctly
 
-# 4b. If leaving empty:
-# Create a quick explanatory README.md, then:
-git add README.md
-git commit -m "Clear main branch for rebuild"
-git push origin main
+      - name: Configure Git Bot Identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run Archive Steps
+        run: |
+          # 1. Create and push old-iterations branch
+          git checkout -b old-iterations
+          git push origin old-iterations --force
+
+          # 2. Switch back to main
+          git checkout main
+
+          # 3. Remove everything from main
+          git rm -r .
+
+          # 4. Create a fresh README so main isn't completely invisible
+          echo "# Project Rebuilt" > README.md
+          echo "The main branch has been cleared. Previous work is saved in the **old-iterations** branch." >> README.md
+
+          # 5. Commit and push back to main
+          git add README.md
+          git commit -m "Archive old iterations and clear main branch"
+          git push origin main
