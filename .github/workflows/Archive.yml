@@ -1,44 +1,41 @@
-name: Archive Main and Clear Repo
+name: Archive and Reset Main
 
-# This makes the workflow run only when you manually click "Run workflow" in GitHub
 on:
   workflow_dispatch:
 
-# Gives the automation permission to push changes back to your repository
 permissions:
   contents: write
 
 jobs:
-  archive-and-clean:
+  archive-and-purge:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetches all history so branches work correctly
-
-      - name: Configure Git Bot Identity
+          fetch-depth: 0
+          token: ${{ secrets.ADMIN_PAT }}
+      - name: Configure Git Identity
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Run Archive Steps
+      - name: Archive Current State
         run: |
-          # 1. Create and push old-iterations branch
-          git checkout -b old-iterations
-          git push origin old-iterations --force
+          # Directly map the current HEAD to the remote old-iterations branch
+          # This avoids local branch creation entirely and safely overwrites/creates the remote target
+          git push origin HEAD:refs/heads/old-iterations --force
 
-          # 2. Switch back to main
-          git checkout main
+      - name: Purge Main Branch
+        run: |
+          # Purge all tracked files in the current working tree
+          git rm -rf .
 
-          # 3. Remove everything from main
-          git rm -r .
-
-          # 4. Create a fresh README so main isn't completely invisible
+          # Create a baseline README to maintain repository structural integrity
           echo "# Project Rebuilt" > README.md
-          echo "The main branch has been cleared. Previous work is saved in the **old-iterations** branch." >> README.md
+          echo "The historical iterations have been successfully archived to the \`old-iterations\` branch." >> README.md
 
-          # 5. Commit and push back to main
+          # Stage, commit, and force-push the clean state back to main
           git add README.md
-          git commit -m "Archive old iterations and clear main branch"
-          git push origin main
+          git commit -m "chore: archive history and purge main branch"
+          git push origin HEAD:refs/heads/main --force
