@@ -1,0 +1,21 @@
+# 1. Back up everything
+git checkout -b old-iterations
+git push -u origin old-iterations
+
+# 2. Return to main
+git checkout main
+
+# 3. Clear main (but optionally keep gitignore/readme if you want)
+git rm -r .
+
+# 4a. If cleaning: 
+# Restore your .gitignore first, add your clean files, then:
+git add .
+git commit -m "Clean main branch"
+git push origin main
+
+# 4b. If leaving empty:
+# Create a quick explanatory README.md, then:
+git add README.md
+git commit -m "Clear main branch for rebuild"
+git push origin main
