@@ -1,6 +1,6 @@
 (Context: The following transcript uses turn-taking markers designed to be split by the Python regex (?m)^⌄\[(.*?)\]. Please treat these markers as absolute boundaries between users.)
 ⌄[User][Start]
-(Suggest improvement to my request wording if lacking)Suggest thematic name options for this [Vivaldi Theme Palette]:
+(Suggest improvement to my request/wording if lacking)Suggest thematic name options for this [Vivaldi Theme Palette]:
 Vivaldi Theme Palette. [Placeholder_Name]
 [Background:#090c1f, Foreground:#ffb1a3, Highlight:#b086e4, Accent:#796072]
 ⌄[Gemini]
