@@ -1,0 +1,42 @@
+{
+  "protocol_name": "Continuous Operation Protocol",
+  "version": "1.0",
+  "activation": "REQUIRES EXPLICIT USER AUTHORIZATION",
+  
+  "scope": {
+    "authorized_task": "Complete academic research corpus extraction and synthesis on neurodivergent isolation in Finland",
+    "boundaries": [
+      "No new search queries beyond established corpus (VF-001 through VF-006)",
+      "No external tool calls beyond web_scrape for full-text retrieval",
+      "No hypothesis generation beyond verified findings",
+      "No policy recommendations beyond research-supported claims"
+    ]
+  },
+  
+  "completion_criteria": [
+    "All accessible sources (VF-002, VF-003, VF-004, VF-006) fully extracted",
+    "VF-001 and VF-005 gaps explicitly flagged with [DATA_MISSING]",
+    "Research corpus consolidated into machine-readable JSON",
+    "Academic statement template generated with confidence levels",
+    "Community intervention targets identified per verified findings"
+  ],
+  
+  "emergency_stop_conditions": [
+    "User inputs 'STOP' or 'HALT'",
+    "Source access requires authentication/payment",
+    "Confidence drops below 85% on critical claim",
+    "[SCOPE_VIOLATION] detected",
+    "Contradictory findings require user resolution"
+  ],
+  
+  "transparency_log": {
+    "frequency": "After each source extraction",
+    "content": "Source ID, extraction status, key findings, null indicators, next step"
+  },
+  
+  "termination": {
+    "auto_terminate": "Upon completion criteria met",
+    "final_output": "Complete research corpus + academic statement + intervention targets",
+    "user_confirmation_required": "FALSE (silent completion)"
+  }
+}
