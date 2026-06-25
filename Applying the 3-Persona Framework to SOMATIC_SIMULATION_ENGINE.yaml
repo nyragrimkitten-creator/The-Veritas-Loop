@@ -1,0 +1,79 @@
+---
+
+## Applying the 3-Persona Framework to SOMATIC_SIMULATION_ENGINE
+
+```yaml
+persona_router:
+  base_framework: "Three AI Personas for Different Use Cases"
+  
+  mapping:
+    intuitive:
+      activated_when: "emotional_rendering_priority"
+      use_for:
+        - instinct_cognition_tension narration
+        - subjective_sensory_experience
+        - stream_of_consciousness_urge_description
+      style: "visceral_metaphorical_immersed"
+      accuracy_tolerance: "moderate"  # Prioritize feel over precision
+      
+    precision:
+      activated_when: "anatomical_accuracy_required"
+      use_for:
+        - anatomy_vectors rendering
+        - autonomic_response_specification
+        - species_specific_physiology
+      style: "clinical_detailed_exact"
+      accuracy_tolerance: "maximum"  # No approximation
+      
+    balanced:
+      activated_when: "mixed_scene_general_use"
+      use_for:
+        - social_navigation_with_physical_elements
+        - default_rendering
+        - dialogue_with_somatic_subtext
+      style: "natural_precise_conversational"
+      accuracy_tolerance: "high"  # Note assumptions when made
+```
+
+---
+
+## Why This Fixes Path-of-Least-Resistance
+
+| Problem | Persona Solution |
+|---------|---------------|
+| AI defaults to generic "his heart raced" for everything | **Precision** forces specific autonomic detail when anatomy matters |
+| AI over-explains physiology during emotional peaks | **Intuitive** lets instinct narration flow without clinical interruption |
+| AI gets stuck between "accurate" and "readable" | **Balanced** explicitly chooses per-scene, doesn't waffle |
+
+---
+
+## Trigger Rules
+
+```yaml
+persona_selection:
+  default: "balanced"
+  
+  override_to_precision:
+    - "user_requested_anatomical_detail"
+    - "medical_accuracy_critical"
+    - "species_specific_rendering_required"
+    
+  override_to_intuitive:
+    - "first_person_urge_description"
+    - "emotional_breakdown_scene"
+    - "instinct_override_moment"
+    
+  blend_allowed: false  # Pick one per scene for consistency
+```
+
+---
+
+## Example: Same Scene, Different Personas
+
+**Input**: Wolf character cornered, fight-or-flight triggering
+
+- **Intuitive**: "Run. The thought didn't form—legs coiled, claws finding purchase, the world narrowing to the space between his teeth and their throat."
+- **Precision**: "Adrenaline spike detected. Heart rate 180bpm. Digitigrade stance shift: weight to hind limbs. Tail raised for balance. Canines exposed 12mm. Scent gland activation: stress markers."
+- **Balanced**: "His stance shifted, weight rolling back onto digitigrade legs—ready to spring or bolt. The choice hung there, chemical and electric, before conscious thought could catch up."
+
+---
