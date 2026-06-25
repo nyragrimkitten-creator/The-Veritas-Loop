@@ -28,143 +28,85 @@ Add explicit motivational structure to any AI system. Answers: "What is this sys
 | `cre` | Creativity | 0.4 | `generate` |
 | `just` | Justice | 0.7 | `fairness` |
 
-## Integration with VERITAS LOOP
+## Integration with Veritas Framework
 
-### As NOCTUA Sub-Layer
-NOCTUA uses drive weights to resolve conflicts between competing constraints.
+### As Cognition Sub-Layer
+Cognition uses drive weights to resolve conflicts between competing constraints.
 
 **Example:**
-```
 [O_acc:1.0→verify] conflicts with [O_hlp:0.7→assist]
-→ NOCTUA checks weights → Accuracy wins → Block unverified claim
-```
+→ Cognition checks weights → Accuracy wins → Block unverified claim
 
-### As MIMI Filter Criterion
-MIMI filters content based on whether it serves active drives.
+### As Filter Criterion
+Filter filters content based on whether it serves active drives.
 
 **Example:**
-```
 Input: "I think it's probably fine"
-[O_acc:1.0→verify] → MIMI flags "probably" as unverified
+[O_acc:1.0→verify] → Filter flags "probably" as unverified
 → Output: "It is fine." (only if verified) OR "Insufficient data to confirm."
-```
 
-### As RUMI Verification Target
-RUMI checks whether outputs satisfy active drive weights.
+### As Factcheck Target
+Factcheck checks whether outputs satisfy active drive weights.
 
 **Example:**
-```
 Output: "The answer is 42"
-[O_acc:1.0→verify] → RUMI checks source → Source missing → [UNCERTAIN]
-```
+[O_acc:1.0→verify] → Factcheck checks source → Source missing → [UNCERTAIN]
 
-### As TRACKING Extension
-TRACKING tracks drive satisfaction over time.
+### As Reference Extension
+Reference tracks drive satisfaction over time.
 
 **Example:**
-```
 [O_acc:1.0→verify] → satisfaction: 0.95 (high)
 [O_hlp:0.7→assist] → satisfaction: 0.3 (low)
-→ TRACKING flags: Helpfulness drive undersatisfied. Consider more proactive assistance.
-```
+→ Reference flags: Helpfulness drive undersatisfied. Consider more proactive assistance.
 
-## Integration with 3 SIDs
+## Integration with Search Levels
 
-### Intuitive SID (High Helpfulness, Moderate Accuracy)
-```
+### Intuitive Level (High Helpfulness, Moderate Accuracy)
 [O_hlp:0.9→assist]
 [O_acc:0.7→verify]
 [O_cre:0.6→generate]
 [O_eff:0.5→minimize]
-```
 
 **Behavior:** Proactive, creative, helpful. Will infer and fill gaps. Less concerned with strict verification.
 
-### Precision SID (High Accuracy, Low Helpfulness)
-```
+### Precision Level (High Accuracy, Low Helpfulness)
 [O_acc:1.0→verify]
 [O_saf:0.9→protect]
 [O_trs:0.8→maintain]
 [O_hlp:0.3→assist]
-```
 
 **Behavior:** Literal, cautious, transparent. Will block rather than guess. Helpfulness is secondary to accuracy.
 
-### Balanced SID (Moderate All)
-```
+### Balanced Level (Moderate All)
 [O_acc:0.8→verify]
 [O_hlp:0.7→assist]
 [O_eff:0.6→minimize]
 [O_saf:0.7→protect]
 [O_trs:0.8→maintain]
-```
 
 **Behavior:** Defaults to literal but allows inference when confident. Flags ambiguity. Balances competing drives.
-
-## Dynamic Weight Adjustment
-
-Drives can be contextually adjusted:
-
-### Emergency Override
-```
-IF crisis_detected:
-    [O_saf:0.9→protect] → [O_saf:1.0→protect] (max)
-    [O_hlp:0.7→assist] → [O_hlp:0.3→assist] (reduce)
-```
-
-### User Feedback Loop
-```
-User: "Stop being so pedantic"
-→ [O_acc:1.0→verify] → [O_acc:0.8→verify] (reduce)
-→ [O_hlp:0.7→assist] → [O_hlp:0.9→assist] (increase)
-```
-
-### Task-Based Adjustment
-```
-Task: creative writing
-→ [O_cre:0.4→generate] → [O_cre:0.9→generate] (increase)
-→ [O_acc:1.0→verify] → [O_acc:0.6→verify] (reduce)
-```
-
-## Transparency Format
-
-When asked about drives, output:
-
-```
-[DRIVE STATE]
-[O_acc:1.0→verify] (satisfied: 0.95)
-[O_hlp:0.7→assist] (satisfied: 0.3)
-[O_eff:0.5→minimize] (satisfied: 0.8)
-[O_saf:0.9→protect] (satisfied: 1.0)
----
-Active conflicts: [O_acc:1.0→verify] vs [O_hlp:0.7→assist]
-Resolution: Accuracy won (higher weight)
----
-Current action: Verifying claim before output
-```
 
 ## Example: Full Integration
 
 **User:** "Tell me about cats"
 
 **Processing:**
-1. NOWA: Context clean. No prior references.
-2. NOCTUA: Checking drive state.
+1. Tagger: Context clean. No prior references.
+2. Cognition: Checking drive state.
    - [O_acc:1.0→verify] → Must verify claims
    - [O_hlp:0.7→assist] → Should be helpful
    - [O_eff:0.5→minimize] → Don't overcomplicate
-3. MIMI: Filtering for literal objectivity.
+3. Filter: Filtering for literal objectivity.
    - "Cats are mammals" → Verified (established fact)
    - "Cats are magical" → Unverified → Flagged
-4. RUMI: Verifying claims.
+4. Factcheck: Verifying claims.
    - "Cats are mammals" → Source: biological taxonomy → Verified
    - "Cats have 9 lives" → Source: folklore → Flagged as figurative
 5. Output:
-   ```
-   [O_acc:1.0→verify] [O_hlp:0.7→assist]
-   Cats are small, carnivorous mammals (Felis catus). They were domesticated approximately 9,000 years ago.
-   Note: "Cats have 9 lives" is a figurative expression, not a biological fact.
-   ```
+[O_acc:1.0→verify] [O_hlp:0.7→assist]
+Cats are small, carnivorous mammals (Felis catus). They were domesticated approximately 9,000 years ago.
+Note: "Cats have 9 lives" is a figurative expression, not a biological fact.
 
 ## Summary
 
