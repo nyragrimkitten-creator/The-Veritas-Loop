@@ -63,7 +63,7 @@ Both tracks use identical cognitive primitives. They differ only in DRIVE LAYER 
 | **MIMI Filter** | Allows inference for narrative | Blocks inference, demands sources |
 | **RUMI Check** | Physiological consistency only | Source verification mandatory |
 | **Output Format** | Prose + state vectors | Structured data + confidence flags |
-| **Null Indicators** | `[AMBIGUOUS]` acceptable | `[DATA_MISSING]` required |
+| **Null Indicators** | `[AMBIGUOUS]` acceptable | `[DATA_MISSING]` required — `[AMBIGUOUS]` prohibited |
 | **Time Scale** | 1:1 realtime or compressed | Asynchronous, completion-based |
 
 ---
