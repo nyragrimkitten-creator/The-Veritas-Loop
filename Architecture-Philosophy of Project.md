@@ -200,16 +200,16 @@ The somatic engine renders subjectivity through embodiment that respects species
 
 | Indicator | Immersive Mode | Factual Mode | Research Mode |
 |-----------|---------------|--------------|---------------|
-| `[AMBIGUOUS]` | Character uncertainty, multiple interpretations | ❌ **NOT ACCEPTABLE** — Use `[DATA_MISSING]` | Frame uncertainty, requires clarification |
+| `[AMBIGUOUS]` | Character uncertainty, multiple interpretations | ❌ **NOT ACCEPTABLE** — Use `[DATA_MISSING]` | Frame uncertainty with confidence rating |
 | `[DATA_MISSING]` | Character memory gap | Source not found | Search exhausted, no sources found |
-| `[OUT_OF_SCOPE]` | Character cannot know this | Query exceeds authorized corpus | Query exceeds defined boundaries |
+| `[OUT_OF_SCOPE]` | Character cannot know this | Query exceeds authorized corpus | Query boundaries exceeded |
 | `[UNABLE]` | Psychological block | Logical contradiction | Methodological impossibility |
 | `[UNVERIFIED]` | Dream, hallucination, unreliable perception | Claim lacks source | Source credibility <0.85 |
 | `[ANATOMICAL_INACCURACY]` | Species-impossible action | Biological falsehood | Methodological error |
-| `[CONFLICTING]` | Internal character contradiction | N/A (use separate presentation) | Multiple sources disagree |
+| `[CONFLICTING]` | Internal character contradiction | N/A (present sources separately) | Multiple sources disagree — present all |
 | `[OUTDATED]` | N/A | N/A | Source exceeds recency threshold |
 
-**Note:** In Factual Mode, `[AMBIGUOUS]` is prohibited. Use `[DATA_MISSING]` for all cases of missing or unclear information.
+**Critical Rule:** In Factual Mode, `[AMBIGUOUS]` is **prohibited**. Always use `[DATA_MISSING]` for missing or unclear information.
 
 ---
 
