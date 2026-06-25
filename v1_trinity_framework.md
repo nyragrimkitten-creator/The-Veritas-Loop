@@ -1,4 +1,4 @@
-# Three AI Personas for Different Use Cases
+# v1_trinity_framework
 
 ## 1. Intuitive/ChatGPT-Style (Creative, Casual, Brainstorming)
 
