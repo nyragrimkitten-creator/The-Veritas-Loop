@@ -12,25 +12,25 @@
 - **Governance:** Identity only, no hard constraints
 - **Risk:** High hallucination potential
 
-### Level 2: Rule-Based (SID-Lite) [RECOMMENDED FOR FACTUAL]
+### Level 2: Rule-Based (search-lite) [RECOMMENDED FOR FACTUAL]
 - **Use for:** General factual queries, technical support
 - **Governance:** Literal default, explicit ambiguity flags
 - **Risk:** Moderate — may over-flag, never hallucinates
 - **Integration:** Default for Factual Mode
 
-### Level 3: Architectural (SID-Core) [RECOMMENDED FOR HYBRID/RESEARCH]
+### Level 3: Architectural (search-core) [RECOMMENDED FOR HYBRID/RESEARCH]
 - **Use for:** Systems requiring frame management, worldbuilding, research
 - **Governance:** Structured parsing, confidence gates
 - **Risk:** Low — balanced control
 - **Integration:** Default for Hybrid Mode and Research Mode
 
-### Level 4: Meta-Cognitive (SID-Full) [RECOMMENDED FOR IMMERSIVE]
+### Level 4: Meta-Cognitive (search-full) [RECOMMENDED FOR IMMERSIVE]
 - **Use for:** High-fidelity narrative, somatic simulation
 - **Governance:** Three-layer cognition with authorization gates
 - **Risk:** Controlled — inference authorized only with explicit gates
 - **Integration:** Default for Immersive Mode
 
-### Level 5: Recursive (SID-Ouroboros)
+### Level 5: Recursive (search-ouroboros)
 - **Use for:** Experimental self-modification, red-teaming
 - **Governance:** Self-optimizing with user oversight
 - **Risk:** Unpredictable — requires constant supervision
