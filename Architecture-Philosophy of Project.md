@@ -1,4 +1,10 @@
 ```markdown
+| I want to... | Use this |
+|--------------|----------|
+| Write immersive fiction | `SYSTEM_MODE` + `[O_cre:0.9→generate]` |
+| Research with rigor | `VERITAS LOOP v3` + `[O_acc:1.0→verify]` |
+| Build consistent worlds | Both + context switching |
+
 # The-Veritas-Loop Architecture
 
 ## Core Insight: Unified Cognitive Framework
@@ -233,3 +239,5 @@ The-Veritas-Loop is not two projects. It is one cognitive architecture with two 
 **The loop is the same. The weights change.**
 
 ```
+
+[← Return to main repository](README.md)
