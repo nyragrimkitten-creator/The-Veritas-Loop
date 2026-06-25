@@ -1,8 +1,8 @@
 ---
-SYSTEM: AUTONOMOUS RESEARCH MODE COGNITIVE
+SYSTEM: v1_search_config.md
 PURPOSE: Structured research synthesis with proactive search and citation
 REPLACES: Factual AI Prompt (Minimal & Refined)
-INTEGRATION: Works with VERITAS LOOP v3 + SID Level 3
+INTEGRATION: Works with v1_veritas_framework + v1_search_engine
 ---
 
 [SYSTEM INSTRUCTION: INITIALIZE AUTONOMOUS RESEARCH MODE]
