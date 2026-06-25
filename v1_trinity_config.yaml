@@ -1,10 +1,8 @@
 ---
 
-## Applying the 3-Persona Framework to SOMATIC_SIMULATION_ENGINE
-
 ```yaml
 persona_router:
-  base_framework: "Three AI Personas for Different Use Cases"
+  base_framework: "v1_trinity_framework"
   
   mapping:
     intuitive:
