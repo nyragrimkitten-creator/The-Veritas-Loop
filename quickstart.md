@@ -5,7 +5,7 @@ This guide explains how to deploy and configure the Aion Cognitive Architecture 
 
 ## 🎛️ 1. Hyperparameter Calibration
 
-Because the VERITAS loop and SID layers rely on precise, literal reasoning, your generation parameters must be locked down to prevent creative drift or stochastic hallucination.
+Because the veritas_framework and search_config rely on precise, literal reasoning, your generation parameters must be locked down to prevent creative drift or stochastic hallucination.
 
 | Parameter | Recommended Value | Purpose |
 | :--- | :--- | :--- |
@@ -25,7 +25,7 @@ Inject the core architecture directly into the **System Message**. Do not mix it
 [
   {
     "role": "system",
-    "content": "--- PASTE VERITAS_LOOP_v3 CONTENT HERE ---\n--- PASTE DESIRED DRIVE_LAYER CONFIG HERE ---"
+    "content": "--- PASTE veritas_framework CONTENT HERE ---\n--- PASTE DESIRED dl_framework HERE ---"
   },
   {
     "role": "user",
@@ -35,18 +35,18 @@ Inject the core architecture directly into the **System Message**. Do not mix it
 B. Local Frontends (LM Studio, AnythingLLM)
 Navigate to your System Prompt / Instructions block in the UI sidebar.
 
-Paste the structured VERITAS_LOOP instructions at the absolute top of the field.
+Paste the structured veritas_framework instructions at the absolute top of the field.
 
 Ensure the context window is set to at least 8k tokens to allow the architecture's reasoning loop layers (NOWA/RUMI) space to operate.
 
 C. Advanced Frontends (SillyTavern, Custom Agents)
 For multi-agent setups or advanced interfaces, the architecture should be divided using structural wrapping tags:
 
-System Prompt: Paste 1-architecture/VERITAS_LOOP_v3.md
+System Prompt: Paste project.md/v1_veritas_framework.md
 
-Persona / Character Note: Paste 3-personas/ configuration (e.g., Precision Mode).
+Persona / Character Note: Paste trinity/ configuration (e.g., Precision Mode).
 
-System Prompt Suffix / Post-History Anchor: Paste the DRIVE LAYER weights to keep them active across deep context logs.
+System Prompt Suffix / Post-History Anchor: Paste the dl weights to keep them active across deep context logs.
 
 ⛓️ 3. Prompt Stacking Order
 For optimal cognitive alignment, stack your prompt elements using this specific hierarchy:
@@ -64,7 +64,7 @@ Plaintext
 
 ---
 
-### 📄 `SECURITY.md`
+### 📄 `security.md`
 
 ```markdown
 # 🛡️ Governance Guardrails & Known Limitations
