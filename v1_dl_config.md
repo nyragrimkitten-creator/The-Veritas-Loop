@@ -1,4 +1,4 @@
-# DRIVE LAYER v1 — ENCODED MOTIVATIONAL STRUCTURE
+# v1_dl_config
 
 ## Purpose
 Add explicit motivational structure to any AI system. Answers: "What is this system trying to achieve, and how does it prioritize competing drives?"
