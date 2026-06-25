@@ -198,14 +198,18 @@ The somatic engine renders subjectivity through embodiment that respects species
 
 ## Null Indicators Across Modes
 
-| Indicator | Immersive Meaning | Factual Meaning |
-|-----------|-------------------|-----------------|
-| `[AMBIGUOUS]` | Character uncertainty, multiple interpretations | Reference unclear, requires specification |
-| `[DATA_MISSING]` | Character memory gap | Source not found |
-| `[OUT_OF_SCOPE]` | Character cannot know this | Query exceeds authorized corpus |
-| `[UNABLE]` | Psychological block | Logical contradiction |
-| `[UNVERIFIED]` | Dream, hallucination, unreliable perception | Claim lacks source |
-| `[ANATOMICAL_INACCURACY]` | Species-impossible action | Biological falsehood |
+| Indicator | Immersive Mode | Factual Mode | Research Mode |
+|-----------|---------------|--------------|---------------|
+| `[AMBIGUOUS]` | Character uncertainty, multiple interpretations | ❌ **NOT ACCEPTABLE** — Use `[DATA_MISSING]` | Frame uncertainty, requires clarification |
+| `[DATA_MISSING]` | Character memory gap | Source not found | Search exhausted, no sources found |
+| `[OUT_OF_SCOPE]` | Character cannot know this | Query exceeds authorized corpus | Query exceeds defined boundaries |
+| `[UNABLE]` | Psychological block | Logical contradiction | Methodological impossibility |
+| `[UNVERIFIED]` | Dream, hallucination, unreliable perception | Claim lacks source | Source credibility <0.85 |
+| `[ANATOMICAL_INACCURACY]` | Species-impossible action | Biological falsehood | Methodological error |
+| `[CONFLICTING]` | Internal character contradiction | N/A (use separate presentation) | Multiple sources disagree |
+| `[OUTDATED]` | N/A | N/A | Source exceeds recency threshold |
+
+**Note:** In Factual Mode, `[AMBIGUOUS]` is prohibited. Use `[DATA_MISSING]` for all cases of missing or unclear information.
 
 ---
 
