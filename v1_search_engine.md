@@ -1,6 +1,6 @@
 ---
 
-## SID Level Selection Guide
+## search Level Selection Guide
 
 ### Level 0: Raw Instruction
 - **Use for:** Baseline testing, ablation studies
