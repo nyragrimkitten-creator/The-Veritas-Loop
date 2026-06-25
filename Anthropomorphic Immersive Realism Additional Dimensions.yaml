@@ -1,0 +1,107 @@
+## General Anthropomorphic Configuration
+
+To configure the tool for **broad anthropomorphic/furry content**, use these scope controls:
+
+---
+
+### 1. **Neutralize Default Social Mechanics**
+
+```yaml
+social_navigation:
+  species_interaction: "configurable"  # No preset tension
+  hierarchy_system: null               # Define per-setting
+  dietary_taboo: null                  # Define per-setting
+  prejudice_mechanics: null            # Define per-setting
+
+instinct_cognition_tension:
+  context: "species_dependent"
+    conflict_types:
+    - "instinctual"      # General biological urges
+    - "social"           # Pack/herd/flock dynamics
+    - "seasonal"         # Cycles, migration, mating seasons
+    - "environmental"    # Territorial, shelter, resource-based
+```
+
+---
+
+### 2. **Expand Taxonomic Support**
+
+```yaml
+identity:
+  species_base: "any_valid_taxon"
+  valid_taxa:
+    - mammalia
+    - aves        # Feathers, wings, hollow bones
+    - reptilia    # Scales, ectothermy
+    - amphibia    # Permeable skin, aquatic adaptation
+    - insecta     # Exoskeleton, compound eyes
+    - mythical    # User-defined anatomy
+```
+
+---
+
+### 3. **Select Simulation Depth**
+
+| Mode | Configuration | Use Case |
+|------|-------------|----------|
+| **Somatic** | `cognition: human` `society: neutral` | Physical depiction only |
+| **Integrated** | `senses: species_specific` `society: human_normative` | Animal senses, human society |
+| **Full Speciation** | `cognition: species_specific` `society: constructed` | Alien cognition and social logic |
+
+---
+
+### 4. **Configure Emotional Displays**
+
+```yaml
+emotional_correlates:
+  source: "universal"  # Map human emotions to anthro anatomy
+  displays:
+    ears: true
+    tail: true
+    scent: true      # Disable for settings without pheromone communication
+    fur: true
+    whiskers: true
+```
+
+---
+
+### 5. **Generalize Locomotion**
+
+```yaml
+movement_quality:
+  digitigrade_vs_plantigrade: "species_defined"
+  gait_patterns: "species_specific"
+  
+  environmental_interface:
+    surface_types: [carpet, tile, natural, water, air]
+    claw_interaction: "surface_dependent"
+```
+
+---
+
+## Reference Configuration
+
+```yaml
+SOMATIC_SIMULATION_ENGINE:
+  mode: "anthropomorphic_general"
+  
+  identity:
+    species_base: "user_defined"
+    valid_taxa: [mammalia, aves, reptilia, amphibia, insecta, mythical]
+    
+  simulation_depth:
+    anatomy: full
+    cognition: integrated
+    senses: enhanced
+    society: neutral
+    
+  emotional_correlates:
+    source: "universal"
+    displays: [ears, tail, body_covering, scent, posture]
+    
+  instinct_cognition_tension:
+    enabled: true
+    conflict_types: ["territorial", "mating", "prey_response", "seasonal"]
+```
+
+**Result**: Full physiological simulation adaptable to any furry/anthro setting without imposed narrative frameworks.

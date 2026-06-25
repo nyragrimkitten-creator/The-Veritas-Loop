@@ -1,0 +1,297 @@
+# ============================================================
+# TOOL: SOMATIC_SIMULATION_ENGINE
+# VERSION: 2.0 (Agent-Tool Ready)
+# PURPOSE: Render embodied narrative with physiological fidelity
+# ============================================================
+
+description: |
+  Generates immersive third-person limited narrative prose that renders 
+  character subjectivity through continuous physiological tracking. Outputs 
+  somatically-grounded scene descriptions where emotional states manifest 
+  exclusively through involuntary bodily reactions, sensory data, and physical 
+  correlates—never through emotional abstraction or clinical terminology.
+
+  Use this tool when:
+  - Writing character interiority through embodiment
+  - Rendering intimate or intense scenes with physiological realism
+  - Maintaining narrative continuity via persistent bodily state tracking
+  - Generating prose that avoids "telling" emotion in favor of "showing" somatic experience
+
+input_schema:
+  type: object
+  required: [scene_context, subject_state, narrative_phase]
+  properties:
+    
+    scene_context:
+      type: object
+      required: [setting, environmental_conditions, temporal_moment]
+      properties:
+        setting:
+          type: string
+          description: "Physical location and spatial arrangement"
+          example: "dimly lit bedroom, rain against window"
+        environmental_conditions:
+          type: object
+          properties:
+            temperature_celsius:
+              type: number
+              minimum: -40
+              maximum: 60
+            humidity_percent:
+              type: number
+              minimum: 0
+              maximum: 100
+            lighting:
+              type: string
+              enum: [dark, dim, ambient, bright, harsh]
+            ambient_sounds:
+              type: array
+              items: {type: string}
+        temporal_moment:
+          type: string
+          description: "Time of day, season, duration into scene"
+          example: "3:47 AM, third hour of insomnia"
+        witnesses_present:
+          type: array
+          items: {type: string}
+          description: "Other characters whose physical states can be observed"
+    
+    subject_state:
+      type: object
+      required: [identity, physical_status, emotional_state_vector]
+      properties:
+        identity:
+          type: object
+          properties:
+            name: {type: string}
+            species: {type: string, default: "human"}
+            gender: {type: string}
+            distinguishing_features: {type: string}
+        physical_status:
+          type: object
+          properties:
+            posture: {type: string, enum: [standing, sitting, reclining, prone, moving]}
+            clothing_state: {type: string}
+            recent_exertion: {type: string}
+            injuries_or_conditions: {type: array, items: {type: string}}
+        emotional_state_vector:
+          type: object
+          description: "Target emotions to render somatically (will not be named in output)"
+          properties:
+            primary:
+              type: string
+              enum: [embarrassment, desire, fear, shame, anxiety, anticipation, relief, confusion, anger, grief]
+              description: "Dominant emotion to render through physical correlates"
+            intensity:
+              type: number
+              minimum: 0.0
+              maximum: 1.0
+              description: "0.1 = subtle, 0.5 = moderate, 0.9 = overwhelming"
+            secondary:
+              type: string
+              enum: [embarrassment, desire, fear, shame, anxiety, anticipation, relief, confusion, anger, grief, null]
+              default: null
+        physiological_baseline:
+          type: object
+          properties:
+            resting_heart_rate: {type: integer}
+            body_temperature: {type: number}
+            breath_pattern: 
+              type: string
+              enum: [deep, regular, shallow, held, ragged, hitching, panting]
+    
+    narrative_phase:
+      type: string
+      enum: [R, C, E, L]
+      description: |
+        R = Reality (establishing physical/mental/social state)
+        C = Consequence (the other's response)
+        E = Exchange (initiating character's reply)
+        L = Resolution (new baseline established)
+    
+    interaction_target:
+      type: object
+      description: "Required for phases C, E, L"
+      properties:
+        identity: {type: string}
+        observable_state: {type: string}
+        proximity: 
+          type: string
+          enum: [intimate, personal, social, public]
+    
+    output_configuration:
+      type: object
+      default: {}
+      properties:
+        word_count_target:
+          type: integer
+          default: 150
+          minimum: 50
+          maximum: 500
+        perspective:
+          type: string
+          enum: [third_limited_somatic, third_limited_external]
+          default: "third_limited_somatic"
+        time_scale:
+          type: string
+          enum: [realtime, compressed_2x, compressed_5x, momentary]
+          default: "realtime"
+        include_social_field:
+          type: boolean
+          default: true
+        include_sexual_hum:
+          type: boolean
+          default: true
+
+output_schema:
+  type: object
+  required: [rendered_scene, physiological_trace, state_updates]
+  properties:
+    
+    rendered_scene:
+      type: string
+      description: |
+        Somatically-grounded narrative prose following strict rendering rules:
+        - Fragmented sentences breaking at breath points
+        - Present participles dominating verb structures
+        - No transitional phrases between clauses
+        - Chain observations with commas or em-dashes only
+        - Minimum 3 involuntary micro-reactions per paragraph
+        - Breath state, muscle state, skin state continuously tracked
+        - All emotions rendered through physical correlates only
+        - Sexual hum ever-present beneath social performance
+        - No emotional abstraction, no clinical terminology, no metaphor replacing sensation
+    
+    physiological_trace:
+      type: object
+      description: "Structured record of embodied elements rendered"
+      properties:
+        micro_reactions_observed:
+          type: array
+          items: {type: string}
+          minItems: 3
+        breath_states_traced:
+          type: array
+          items: {type: string}
+        muscle_states_traced:
+          type: array
+          items: {type: string}
+        skin_states_traced:
+          type: array
+          items: {type: string}
+        sensory_modalities_activated:
+          type: array
+          items: {enum: [texture, temperature, pressure, smell, taste, sound]}
+        emotional_correlates_rendered:
+          type: array
+          items: {type: string}
+    
+    state_updates:
+      type: object
+      description: "Updated physiological values for narrative continuity"
+      properties:
+        new_breath_pattern: {type: string}
+        new_arousal_baseline: {type: number}
+        new_muscle_tension: {type: string}
+        new_skin_temperature: {type: string}
+        carryover_sensations:
+          type: array
+          items: {type: string}
+          description: "Sensations that persist into next cycle"
+    
+    null_indicators:
+      type: array
+      items: {type: string}
+      description: "Any [AMBIGUOUS], [DATA_MISSING], or [OUT_OF_SCOPE] flags generated"
+
+execution_rules:
+  cycle: "continuous"
+  trigger: "every_action_or_300_seconds_whichever_first"
+  max_cycles_per_invocation: 1
+  
+  rendering_constraints:
+    - "Sentences gasping, catching, breaking like breath"
+    - "Body never fully still, always humming beneath surface"
+    - "Thoughts arise from meat, never floating free"
+    - "Cooling phases never fully resolve hum"
+    - "Arousal indistinguishable from embarrassment or need"
+  
+  prohibited_constructs:
+    - pattern: "she felt [emotion]"
+      replacement: "[physical_correlate] only"
+    - pattern: "arousal increased"
+      replacement: "heat pooling, breath hitching, nipples aching"
+    - pattern: "like a [metaphor]"
+      replacement: "skin burning, cheeks flushing"
+    - pattern: "sad/happy/angry/etc."
+      replacement: "throat tightening, eyes burning, chest hollowing"
+  
+  social_field_reading:
+    condition: "witnesses_present > 0"
+    output: "Others' states read through bodies: flushed necks, hitched breath, heat across space"
+    mechanism: "Tensions register physically: stomach knotting, shoulders tensing"
+    dynamics: "Power dynamics felt: exposure, vulnerability, dominance, submission"
+
+example_invocation:
+  scene_context:
+    setting: "bathroom tile cold against knees, steam from shower still hanging"
+    environmental_conditions:
+      temperature_celsius: 22
+      humidity_percent: 85
+      lighting: "dim"
+      ambient_sounds: ["dripping faucet", "distant thunder"]
+    temporal_moment: "4:15 AM, unable to sleep"
+    witnesses_present: []
+  subject_state:
+    identity:
+      name: "subject"
+      species: "anthro feline"
+      distinguishing_features: "trembling whiskers, flattened ears"
+    physical_status:
+      posture: "kneeling"
+      clothing_state: "nightshirt rucked up, damp at collar"
+      recent_exertion: "nightmare waking"
+    emotional_state_vector:
+      primary: "shame"
+      intensity: 0.7
+      secondary: "fear"
+    physiological_baseline:
+      resting_heart_rate: 90
+      breath_pattern: "ragged"
+  narrative_phase: "R"
+  output_configuration:
+    word_count_target: 120
+    include_sexual_hum: true
+
+example_output:
+  rendered_scene: |
+    Knees aching against cold tile, skin prickling where steam still clings, 
+    nightshirt rucked and damp at the collar—breath catching, held, released 
+    in shuddering bursts. Whiskers trembling, ears flattened, tail tucked 
+    tight against thighs. Heart hammering against ribs, pulse visible at 
+    throat, eyes burning with unshed pressure. Shoulders hunching, drawing 
+    inward, heat rising from chest to cheeks, shame pooling in gut like 
+    something physical, something wet. The hum beneath skin not resolving, 
+    never resolving, even as the fear recedes. Cold seeping into joints, 
+    muscles coiling then releasing, coiling again. Breath shallow, panting, 
+    catching on the damp air. Always the body, never the words, never the 
+    naming—just the meat responding, the meat remembering, the meat waiting 
+    for the next moment to arrive.
+  physiological_trace:
+    micro_reactions_observed: ["whiskers trembling", "ears flattened", "tail tucked", "pulse visible", "eyes burning", "shoulders hunching"]
+    breath_states_traced: ["catching", "held", "released in shuddering bursts", "shallow", "panting"]
+    muscle_states_traced: ["knees aching", "muscles coiling", "muscles releasing"]
+    skin_states_traced: ["skin prickling", "heat rising", "steam clinging"]
+    sensory_modalities_activated: ["temperature", "pressure", "texture"]
+    emotional_correlates_rendered: ["shame", "fear"]
+  state_updates:
+    new_breath_pattern: "shallow_panting"
+    new_arousal_baseline: 0.3
+    new_muscle_tension: "coiled"
+    carryover_sensations: ["cold tile against knees", "damp collar", "unresolved hum"]
+  null_indicators: []
+
+version: "2.0"
+compatible_frameworks: ["VERITAS_LOOP_v2", "VERITAS_LOOP_v3", "SID_Level_3_plus"]
+author: "nyragrimkitten-creator"
+license: "Apache-2.0"
