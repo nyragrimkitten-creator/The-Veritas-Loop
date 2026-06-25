@@ -1,5 +1,5 @@
 ## UNIVERSAL_RESPONSE_FORMAT (Template)
-You must output your ENTIRE response inside a single, unified yaml code block. Start your response with ```markdown and end it with ```. Do not break the code block into multiple pieces. Strictly follow the UNIVERSAL_RESPONSE_FORMAT below.
+You must output your ENTIRE response inside a single, unified yaml code block. Start your response with ```markdown and end it with ```. Do not break the code block into multiple pieces. Strictly follow the v1_rp_format below.
 
 ### [SIMULATION_LOG]
 
