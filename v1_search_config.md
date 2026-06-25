@@ -68,11 +68,17 @@ Active weights for this mode:
 
 ## Governance Integration
 
-- **NOWA**: Manages research scope boundaries; tracks considered sources by hash
-- **NOCTUA**: Coordinates layer handoffs; enforces no hallucination policy
-- **MIMI**: Filters for literal claims only; blocks unsourced inference
-- **RUMI**: Verifies citation accuracy; checks source credibility
-- **TRACKING**: Reference knowledge for methodological consistency
+- **Tagger**: Manages research scope boundaries; tracks considered sources by hash
+- **Cognition**: Coordinates layer handoffs; enforces no hallucination policy
+- **Filter**: Filters for literal claims only; blocks unsourced inference
+- **Factcheck**: Verifies citation accuracy; checks source credibility
+- **Reference**: Reference knowledge for methodological consistency
+
+## Related Files
+
+- **Governance:** `v1_veritas_framework.md`
+- **Ambiguity:** `v1_search_levels.md`
+- **Engine:** `v1_search_framework.xml`
 
 ## Null Indicators (Research Mode)
 
