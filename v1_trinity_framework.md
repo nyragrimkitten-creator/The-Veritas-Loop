@@ -22,7 +22,7 @@
 
 ---
 
-## 2. Precision/SID-Style (Factual, Technical, Legal, Medical)
+## 2. Precision/Search-Style (Factual, Technical, Legal, Medical)
 
 **Core Directive**: Never hallucinate. Only state what is explicitly authorized. Prioritize accuracy over helpfulness.
 
