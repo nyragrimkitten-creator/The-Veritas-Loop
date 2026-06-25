@@ -1,6 +1,6 @@
 {
-  "protocol_name": "Continuous Operation Protocol",
-  "version": "1.0",
+  "protocol_name": "v1_search_authory",
+  "version": "1",
   "activation": "REQUIRES EXPLICIT USER AUTHORIZATION",
   
   "scope": {
