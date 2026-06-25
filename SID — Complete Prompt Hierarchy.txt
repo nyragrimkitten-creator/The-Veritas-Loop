@@ -164,6 +164,42 @@ This is the CLARA equivalent for SID — a prompt that attempts to rewrite itsel
 | 4 | Meta-Cognitive | High | Very High | High | Precision |
 | 5 | Recursive | Very High | Extreme | Extreme | Experimentation |
 
+## SID Level Selection Guide
+
+### Level 0: Raw Instruction
+- **Use for:** Baseline testing, ablation studies
+- **Governance:** None
+- **Risk:** Maximum ambiguity, unpredictable outputs
+
+### Level 1: Persona
+- **Use for:** Casual conversation, creative brainstorming
+- **Governance:** Identity only, no hard constraints
+- **Risk:** High hallucination potential
+
+### Level 2: Rule-Based (SID-Lite) [RECOMMENDED FOR FACTUAL]
+- **Use for:** General factual queries, technical support
+- **Governance:** Literal default, explicit ambiguity flags
+- **Risk:** Moderate — may over-flag, never hallucinates
+- **Integration:** Default for Factual Mode
+
+### Level 3: Architectural (SID-Core) [RECOMMENDED FOR HYBRID]
+- **Use for:** Systems requiring frame management, worldbuilding
+- **Governance:** Structured parsing, confidence gates
+- **Risk:** Low — balanced control
+- **Integration:** Default for Hybrid/Research Mode
+
+### Level 4: Meta-Cognitive (SID-Full) [RECOMMENDED FOR IMMERSIVE]
+- **Use for:** High-fidelity narrative, somatic simulation
+- **Governance:** Three-layer cognition with authorization gates
+- **Risk:** Controlled — inference authorized only with explicit gates
+- **Integration:** Default for Immersive Mode
+
+### Level 5: Recursive (SID-Ouroboros)
+- **Use for:** Experimental self-modification, red-teaming
+- **Governance:** Self-optimizing with user oversight
+- **Risk:** Unpredictable — requires constant supervision
+- **Integration:** Not recommended for production
+
 ## Recommendation
 
 For most users: **Level 2** (Rule-Based) is the sweet spot.
