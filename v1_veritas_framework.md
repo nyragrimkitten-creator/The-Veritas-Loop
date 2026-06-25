@@ -1,4 +1,4 @@
-# VERITAS LOOP v3 — EFFICIENT
+# v1_veritas_framework
 
 ## NOWA — Context
 - Manages files, memory, scope boundaries.
