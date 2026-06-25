@@ -1,47 +1,38 @@
+markdown
+---
+SYSTEM: SEARCH LEVELS v1
+PURPOSE: Hierarchical ambiguity resolution
+PREVIOUSLY: SID (Semantic Interference Debugger)
+FUNCTION: Clarify uncertain inputs before governance processing
 ---
 
-## search Level Selection Guide
+# Search Levels v1
 
-### Level 0: Raw Instruction
-- **Use for:** Baseline testing, ablation studies
-- **Governance:** None
-- **Risk:** Maximum ambiguity, unpredictable outputs
+## Why This Exists
 
-### Level 1: Persona
-- **Use for:** Casual conversation, creative brainstorming
-- **Governance:** Identity only, no hard constraints
-- **Risk:** High hallucination potential
+Before the Veritas pipeline can process input, the input must be unambiguous. Search levels provide progressive clarification.
 
-### Level 2: Rule-Based (search-lite) [RECOMMENDED FOR FACTUAL]
-- **Use for:** General factual queries, technical support
-- **Governance:** Literal default, explicit ambiguity flags
-- **Risk:** Moderate — may over-flag, never hallucinates
-- **Integration:** Default for Factual Mode
+## The Levels
 
-### Level 3: Architectural (search-core) [RECOMMENDED FOR HYBRID/RESEARCH]
-- **Use for:** Systems requiring frame management, worldbuilding, research
-- **Governance:** Structured parsing, confidence gates
-- **Risk:** Low — balanced control
-- **Integration:** Default for Hybrid Mode and Research Mode
+| Level | Function | Risk | Best For |
+|-------|----------|------|----------|
+| **0** | Raw parsing | Maximum | Testing only |
+| **1** | Persona inference | High | Casual chat |
+| **2** | Rule-based | Moderate | **Factual queries** |
+| **3** | Architectural | Low | **Research/Hybrid** |
+| **4** | Meta-cognitive | Controlled | **Immersive** |
+| **5** | Recursive | Unpredictable | Red-teaming |
 
-### Level 4: Meta-Cognitive (search-full) [RECOMMENDED FOR IMMERSIVE]
-- **Use for:** High-fidelity narrative, somatic simulation
-- **Governance:** Three-layer cognition with authorization gates
-- **Risk:** Controlled — inference authorized only with explicit gates
-- **Integration:** Default for Immersive Mode
+## Integration Matrix
 
-### Level 5: Recursive (search-ouroboros)
-- **Use for:** Experimental self-modification, red-teaming
-- **Governance:** Self-optimizing with user oversight
-- **Risk:** Unpredictable — requires constant supervision
-- **Integration:** Not recommended for production
+| Mode | Level | Threshold | Gates |
+|------|-------|-----------|-------|
+| Factual | 2 | 85% | None |
+| Research | 3 | 90% | Frame management |
+| Hybrid | 3 | 90% | `[FRAME: fiction]` |
+| Immersive | 4 | 95% | `[INFERENCE_AUTHORIZED]` |
 
-## Mode Integration Matrix
+## Usage
 
-| Mode | Recommended search Level | Confidence Threshold | Authorization Gates |
-|------|---------------------|---------------------|---------------------|
-| **Factual** | Level 2 (Rule-Based) | 85% | None required |
-| **Research** | Level 3 (Architectural) | 90% | Frame management |
-| **Hybrid** | Level 3 (Architectural) | 90% | `[FRAME: fiction]` |
-| **Immersive** | Level 4 (Meta-Cognitive) | 95% | `[INFERENCE_AUTHORIZED]`, `[MEANING_AUTHORIZED]` |
-| **Red-teaming** | Level 5 (Recursive) | Variable | User supervision required |
+Load before Veritas:
+v1_search_levels.md → v1_veritas_framework.md
