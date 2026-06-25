@@ -1,6 +1,6 @@
 ---
 
-### 📄 `SECURITY.md`
+### 📄 `security.md`
 
 ```markdown
 # 🛡️ Governance Guardrails & Known Limitations
