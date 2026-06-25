@@ -1,4 +1,4 @@
-# The-Veritas-Loop: Quick Reference
+# veritas_framework: Quick Reference
 
 ## Mode Selection Guide
 
