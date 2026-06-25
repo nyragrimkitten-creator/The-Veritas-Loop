@@ -38,7 +38,7 @@
 
 ## Mode Integration Matrix
 
-| Mode | Recommended SID Level | Confidence Threshold | Authorization Gates |
+| Mode | Recommended search Level | Confidence Threshold | Authorization Gates |
 |------|---------------------|---------------------|---------------------|
 | **Factual** | Level 2 (Rule-Based) | 85% | None required |
 | **Research** | Level 3 (Architectural) | 90% | Frame management |
