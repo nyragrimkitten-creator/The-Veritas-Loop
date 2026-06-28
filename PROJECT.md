@@ -1,6 +1,6 @@
 ## 3. PROJECT VISION (PROJECT.md)
 
-```markdown
+
 # Veritas Framework: Vision & Intent
 
 ## Why This Framework Exists
@@ -91,12 +91,3 @@ We explicitly avoid:
 ## The Name
 
 *Veritas* (truth) reflects our commitment to epistemic accountability—not naive realism, but honest representation of what is known, unknown, and uncertain. The framework doesn't claim to generate truth, but to **govern generation with truth-tracking mechanisms**.
-
-## Roadmap
-
-- [x] v1.0: Core pipeline, 3 modes, 8 templates, memory architecture
-- [ ] v1.1: Multi-character interaction protocols
-- [ ] v1.2: External tool integration (image/video generation hooks)
-- [ ] v1.3: Distributed memory (vector database backends)
-- [ ] v2.0: Learned calibration (empirical accuracy feedback loops)
-```
