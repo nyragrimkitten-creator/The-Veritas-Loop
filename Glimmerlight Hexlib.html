@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: monospace; color: #fff; padding: 20px;
+    background-size: cover; background-position: center; background-attachment: fixed;
+    min-height: 100vh;
+}
+body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7); z-index: -1;
+}
+
+#pageName {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid #555;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    width: 100px;
+}
+#pageName:focus {
+    border-color: #888;
+    outline: none;
+    background: rgba(0,0,0,0.7);
+}
+
+#controls {
+    position: fixed; top: 20px; right: 20px;
+    background: rgba(50,50,50,0.95); padding: 15px; border-radius: 8px;
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    max-width: 450px; z-index: 100;
+    transition: opacity 0.3s, transform 0.3s;
+}
+body.compact #controls {
+    opacity: 0; pointer-events: none; transform: translateX(50px);
+}
+#controls button, #controls label {
+    width: auto; padding: 5px 10px; font-size: 11px; cursor: pointer;
+}
+#pageInfo { color: #aaa; font-size: 12px; min-width: 60px; text-align: center; }
+.toggleRow { width: 100%; display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+
+#compactBtn {
+    position: fixed; top: 10px; right: 10px; width: 40px; height: 40px;
+    background: rgba(50,50,50,0.9); border: 2px solid #666;
+    border-radius: 8px; cursor: pointer; display: none;
+    z-index: 101; font-size: 20px; color: #fff;
+    align-items: center; justify-content: center;
+}
+body.compact #compactBtn { display: flex; }
+
+.page { display: none; }
+.page.active {
+    display: block;
+    margin: 120px auto 0;
+    max-width: 1400px;
+    padding: 0 40px;
+}
+body.compact .page.active { margin-top: 60px; }
+
+.honeycomb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.honeycomb-row {
+    display: flex;
+    gap: 8px; /* The gap (G) */
+    justify-content: center;
+    margin-bottom: -20.79px; /* The calculated overlap (V) */
+}
+
+.honeycomb-row.offset {
+    margin-left: 105px; /* The calculated offset (O) */
+}
+
+.hexagon {
+    /* Keep your existing calculated width, height, clip-path, etc. */
+    width: 96px; 
+    height: 110.85px; 
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.1s;
+    flex-shrink: 0;
+    
+    /* ADD THIS */
+    position: relative; 
+}
+
+.hex {
+    /* Positioning it perfectly in the lower center */
+    position: absolute;
+    bottom: 15px; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Styling */
+    background: rgba(0,0,0,0.85); 
+    color: #fff; 
+    padding: 3px 6px;
+    font-size: 10px; 
+    pointer-events: none; 
+    white-space: nowrap;
+    border-radius: 3px; 
+    z-index: 10;
+    
+    /* The hiding mechanism */
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Show exactly when the individual hexagon is hovered */
+.hexagon:hover .hex { 
+    opacity: 1; 
+    visibility: visible;
+}
+/* Update the X button to hide completely */
+.x {
+    position: absolute; 
+    top: 15px; 
+    right: 15px;
+    background: rgba(0,0,0,0.7); 
+    color: #fff;
+    width: 22px; 
+    height: 22px; 
+    text-align: center;
+    line-height: 22px; 
+    cursor: pointer; 
+    border-radius: 50%;
+    font-size: 13px; 
+    z-index: 20;
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.2s, visibility 0.2s;
+}
+
+.hexagon:hover .x { 
+    opacity: 1; 
+    visibility: visible; 
+}
+
+.x:hover { 
+    background: rgba(200,50,50,0.9); 
+}
+
+/* Add this for the empty gaps when a hexagon is deleted */
+.hexagon.placeholder {
+    background: rgba(0, 0, 0, 0.2); 
+    box-shadow: none; 
+    cursor: default;
+}
+/* Show all of them when the body gets the 'alwaysHex' class from your checkbox */
+body.alwaysHex .hexagon .hex { 
+    opacity: 1; 
+    visibility: visible;
+}
+
+/* Ensure the addbox perfectly matches the dimensions of the hexagon */
+.addbox {
+    width: 96px; 
+    height: 110.85px; 
+    border: 3px dashed rgba(150,150,150,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; 
+    color: rgba(200,200,200,0.6);
+    font-size: 32px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    flex-shrink: 0;
+}
+.addbox:hover { border-color: rgba(200,200,200,0.8); color: rgba(255,255,255,0.9); }
+
+#inputBox, #exportBox {
+    display: none; position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); background: rgba(40,40,40,0.98);
+    padding: 20px; border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.9); z-index: 200;
+    border: 1px solid #555;
+}
+#inputBox textarea, #exportBox textarea {
+    width: 400px; height: 200px; padding: 10px;
+    font-family: monospace; font-size: 14px;
+    background: #222; color: #fff; border: 1px solid #555;
+    resize: vertical; border-radius: 4px;
+}
+#inputBox button, #exportBox button { padding: 10px 20px; margin-top: 10px; cursor: pointer; }
+#inputBox .hint, #exportBox .hint { color: #888; font-size: 12px; margin-bottom: 10px; }
+#fileInput { display: none; }
+</style>
+</head>
+<body>
+<button id="compactBtn" onclick="toggleCompact()">⬓</button>
+
+<div id="controls">
+<button onclick="prevPage()">◀</button>
+    <span id="pageInfo">Page <span id="pageNumber">1</span>/<span id="totalPages">1</span></span>
+    <button onclick="nextPage()">▶</button>
+    <input type="text" id="pageName" placeholder="Name (opt)" oninput="updatePageName(this.value)" autocomplete="off">
+    <button onclick="addPage()">+ Page</button>
+    <button onclick="deletePage()" style="background:#c44;">− Page</button>
+    <button onclick="document.getElementById('fileInput').click()">🖼 Wallpaper</button>
+    <button onclick="clearWallpaperConfirm()">✕</button>
+    <button onclick="exportAll()">📋 Export</button>
+    <button onclick="clearAll()" style="background:#c44;">🗑 Clear</button>
+    <button onclick="toggleCompact()">⬒ Compact</button>
+    
+    <div class="toggleRow">
+        <label><input type="checkbox" onchange="toggleHex(this)"> Always Show Hex</label>
+    </div>
+</div>
+
+<input type="file" id="fileInput" accept="image/*" onchange="setWallpaper(this)">
+
+<div id="pagesContainer"></div>
+
+<div id="inputBox">
+    <div class="hint">Paste hex codes (comma, space, or newline separated)</div>
+    <textarea id="bulk" placeholder="#FF5733, #33FF57, #3357FF"></textarea><br>
+    <button onclick="addBulk()">Add All</button>
+    <button onclick="closeBox()" style="margin-left:10px;">Cancel</button>
+</div>
+
+<div id="exportBox">
+    <div class="hint">All hex codes from all pages (click to copy)</div>
+    <textarea id="exportArea" readonly onclick="this.select();document.execCommand('copy');alert('Copied!')"></textarea><br>
+    <button onclick="closeExport()">Close</button>
+</div>
+
+<script>
+// --- MISSING VARIABLES & SETUP ---
+var pages = [[]]; 
+var pageNames = [""]; // <-- ADD THIS LINE
+var currentPage = 0;
+var alwaysHex = false;
+var itemsPerRow = 4;
+
+// --- MISSING PAGINATION FUNCTIONS ---
+function prevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        renderCurrentPage();
+    }
+}
+
+function nextPage() {
+    if (currentPage < pages.length - 1) {
+        currentPage++;
+        renderCurrentPage();
+    }
+}
+
+function updatePageName(val) {
+    pageNames[currentPage] = val;
+}
+
+function updatePageInfo() {
+    document.getElementById('pageNumber').textContent = (currentPage + 1);
+    document.getElementById('totalPages').textContent = pages.length;
+    
+    // Load the saved name for the current page into the input box
+    var nameInput = document.getElementById('pageName');
+    nameInput.value = pageNames[currentPage] || "";
+}
+
+function addPage() {
+    pages.push([]);
+    pageNames.push(""); // Create a blank name slot for the new page
+    currentPage = pages.length - 1;
+    renderCurrentPage();
+}
+
+function deletePage() {
+    if (pages.length > 1) {
+        if (confirm('Delete current page?')) {
+            pages.splice(currentPage, 1);
+            pageNames.splice(currentPage, 1); // Delete the name slot too
+            if (currentPage >= pages.length) currentPage = pages.length - 1;
+            renderCurrentPage();
+        }
+    } else {
+        alert('Cannot delete the last page.');
+    }
+}
+
+// --- MISSING SHADOW FUNCTION ---
+function darkenColor(col, amt) {
+    var usePound = false;
+    if (col[0] == "#") { col = col.slice(1); usePound = true; }
+    var num = parseInt(col,16);
+    var r = (num >> 16) - amt;
+    if (r > 255) r = 255; else if (r < 0) r = 0;
+    var b = ((num >> 8) & 0x00FF) - amt;
+    if (b > 255) b = 255; else if (b < 0) b = 0;
+    var g = (num & 0x0000FF) - amt;
+    if (g > 255) g = 255; else if (g < 0) g = 0;
+    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
+}
+
+function renderCurrentPage() {
+    var container = document.getElementById('pagesContainer');
+    container.innerHTML = '';
+    
+    var pageDiv = document.createElement('div');
+    pageDiv.className = 'page active';
+    pageDiv.id = 'page' + currentPage;
+    
+    var honeycomb = document.createElement('div');
+    honeycomb.className = 'honeycomb';
+    
+    itemsPerRow = Math.floor((window.innerWidth - 100) / 88);
+    if (itemsPerRow < 4) itemsPerRow = 4;
+    if (itemsPerRow > 16) itemsPerRow = 16;
+    
+    var hexes = pages[currentPage];
+    var rowCount = Math.ceil((hexes.length + 1) / itemsPerRow);
+    
+    for (var r = 0; r < rowCount; r++) {
+        var row = document.createElement('div');
+        row.className = 'honeycomb-row' + (r % 2 === 1 ? ' offset' : '');
+        
+        for (var i = 0; i < itemsPerRow; i++) {
+            var idx = r * itemsPerRow + i;
+            
+            if (idx < hexes.length) {
+                if (hexes[idx] === null) {
+                    // Create an empty placeholder slot to prevent the grid from nudging
+                    var empty = document.createElement('div');
+                    empty.className = 'hexagon placeholder';
+                    empty.dataset.index = idx;
+                    
+                    // Allow dragging other colors INTO this empty gap
+                    empty.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'move';
+                    });
+                    
+                    empty.addEventListener('drop', function(e) {
+                        e.preventDefault();
+                        var draggedIdx = parseInt(e.dataTransfer.getData('text/plain'));
+                        var targetIdx = parseInt(this.dataset.index);
+                        
+                        if (!isNaN(draggedIdx) && draggedIdx !== targetIdx) {
+                            pages[currentPage][targetIdx] = pages[currentPage][draggedIdx];
+                            pages[currentPage][draggedIdx] = null; // Leave a gap where it came from
+                            
+                            // Clean up trailing empty spaces at the very end
+                            while(pages[currentPage].length > 0 && pages[currentPage][pages[currentPage].length - 1] === null) {
+                                pages[currentPage].pop();
+                            }
+                            renderCurrentPage();
+                        }
+                    });
+                    
+                    row.appendChild(empty);
+                } else {
+                    // Note: We are now passing `idx` into createHexagon
+                    row.appendChild(createHexagon(hexes[idx], idx)); 
+                }
+            } else if (idx === hexes.length) {
+                var add = document.createElement('div');
+                add.className = 'addbox';
+                add.innerHTML = '+';
+                add.onclick = openBox;
+                row.appendChild(add);
+            }
+        }
+        
+        if (row.children.length > 0) {
+            honeycomb.appendChild(row);
+        }
+    }
+    
+    // Empty page
+    if (hexes.length === 0) {
+        var row = document.createElement('div');
+        row.className = 'honeycomb-row';
+        var add = document.createElement('div');
+        add.className = 'addbox';
+        add.innerHTML = '+';
+        add.onclick = openBox;
+        row.appendChild(add);
+        honeycomb.appendChild(row);
+    }
+    
+    pageDiv.appendChild(honeycomb);
+    container.appendChild(pageDiv);
+    updatePageInfo();
+}
+
+function setWallpaper(input) {
+    var file = input.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        document.body.style.backgroundImage = 'url(' + e.target.result + ')';
+        localStorage.setItem('wallpaper', e.target.result);
+    };
+    reader.readAsDataURL(file);
+}
+
+function clearWallpaperConfirm() {
+    if (confirm('Remove wallpaper?')) {
+        document.body.style.backgroundImage = '';
+        localStorage.removeItem('wallpaper');
+    }
+}
+
+function loadWallpaper() {
+    var saved = localStorage.getItem('wallpaper');
+    if (saved) document.body.style.backgroundImage = 'url(' + saved + ')';
+}
+
+function toggleCompact() {
+    document.body.classList.toggle('compact');
+}
+
+function toggleHex(cb) {
+    alwaysHex = cb.checked;
+    document.body.classList.toggle('alwaysHex', alwaysHex);
+}
+
+function clearAll() {
+    if (confirm('Clear all colors on this page?')) {
+        pages[currentPage] = [];
+        renderCurrentPage();
+    }
+}
+
+function exportAll() {
+    var allHexes = [];
+    pages.forEach(function(page, i) {
+        // If a name exists, format it nicely. Otherwise, leave it blank.
+        var nameStr = pageNames[i] ? " (" + pageNames[i] + ")" : "";
+        allHexes.push('--- Page ' + (i + 1) + nameStr + ' ---');
+        allHexes = allHexes.concat(page);
+    });
+    document.getElementById('exportArea').value = allHexes.join('\n');
+    document.getElementById('exportBox').style.display = 'block';
+}
+
+function closeExport() {
+    document.getElementById('exportBox').style.display = 'none';
+}
+
+// Updated to accept the array index
+function createHexagon(h, idx) {
+    var d = document.createElement('div');
+    d.className = 'hexagon';
+    d.style.background = h;
+    d.style.boxShadow = 'inset 0 0 20px ' + darkenColor(h, 30);
+    d.draggable = true;
+    d.dataset.hex = h;
+    d.dataset.index = idx; // Store index to fix duplicate color drag bug
+    
+    var label = document.createElement('span');
+    label.className = 'hex';
+    label.textContent = h;
+    d.appendChild(label);
+    
+    var xBtn = document.createElement('span');
+    xBtn.className = 'x';
+    xBtn.innerHTML = '×';
+    xBtn.onclick = function(e) {
+        e.stopPropagation();
+        
+        // Replace with null instead of splicing to prevent layout ripple
+        pages[currentPage][idx] = null; 
+        
+        // If they delete the very last item, trim the array so the '+' box pulls back
+        while(pages[currentPage].length > 0 && pages[currentPage][pages[currentPage].length - 1] === null) {
+            pages[currentPage].pop();
+        }
+        
+        renderCurrentPage();
+    };
+    d.appendChild(xBtn);
+    
+    d.onclick = function(e) {
+        if (e.target.className === 'x') return;
+        var t = document.createElement('textarea');
+        t.value = h;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        label.textContent = 'Copied!';
+        setTimeout(function() { label.textContent = h; }, 800);
+    };
+    
+    d.addEventListener('dragstart', function(e) {
+        d.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        // Send the Index number, NOT the hex color
+        e.dataTransfer.setData('text/plain', idx); 
+    });
+    
+    d.addEventListener('dragend', function() {
+        d.classList.remove('dragging');
+    });
+    
+    d.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+    });
+    
+    d.addEventListener('drop', function(e) {
+        e.preventDefault();
+        var draggedIdx = parseInt(e.dataTransfer.getData('text/plain'));
+        var targetIdx = parseInt(this.dataset.index);
+        
+        if (!isNaN(draggedIdx) && draggedIdx !== targetIdx) {
+            // Swap based on absolute index
+            var temp = pages[currentPage][draggedIdx];
+            pages[currentPage][draggedIdx] = pages[currentPage][targetIdx];
+            pages[currentPage][targetIdx] = temp;
+            
+            // Trim nulls just in case you swapped a blank space to the end
+            while(pages[currentPage].length > 0 && pages[currentPage][pages[currentPage].length - 1] === null) {
+                pages[currentPage].pop();
+            }
+            
+            renderCurrentPage();
+        }
+    });
+    
+    return d;
+}
+
+function openBox() {
+    document.getElementById('inputBox').style.display = 'block';
+    document.getElementById('bulk').value = '';
+    document.getElementById('bulk').focus();
+}
+
+function closeBox() {
+    document.getElementById('inputBox').style.display = 'none';
+}
+
+function addBulk() {
+    var text = document.getElementById('bulk').value;
+    var hexes = text.match(/#?[0-9A-Fa-f]{6}/g) || [];
+    var added = 0;
+    
+    hexes.forEach(function(h) {
+        if (!h.startsWith('#')) h = '#' + h;
+        pages[currentPage].push(h.toUpperCase());
+        added++;
+    });
+    
+    if (added > 0) {
+        renderCurrentPage();
+        closeBox();
+    } else {
+        alert('No valid hex codes found');
+    }
+}
+
+document.getElementById('bulk').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && e.ctrlKey) addBulk();
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeBox();
+        closeExport();
+    }
+});
+
+window.addEventListener('resize', function() {
+    renderCurrentPage();
+});
+
+// Init
+loadWallpaper();
+renderCurrentPage();
+</script>
+</body>
+</html>
