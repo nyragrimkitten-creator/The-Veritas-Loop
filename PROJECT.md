@@ -1,4 +1,4 @@
-## 3. PROJECT VISION (vision.md)
+## 3. PROJECT VISION (PROJECT.md)
 
 ```markdown
 # Veritas Framework: Vision & Intent
