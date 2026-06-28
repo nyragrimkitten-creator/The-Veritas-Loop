@@ -1,3 +1,3 @@
 Notepad++ User Defined Language, for reading by alot of color variety in text (complete) = Glimmerlight.xml
-Vibe coding attempt at hexagonal pattern library of hex codes to save and copy from (very good so far but page switching is broken atm) = Glimmerlight Hexlib.html
+Vibe coding attempt at hexagonal pattern library of hex codes to save and copy from (working but doesnt remember anything after closing it) = Glimmerlight Hexlib.html
 Vivaldi theme (complete) = Glimmerlight Meadow.zip
