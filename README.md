@@ -135,7 +135,7 @@ EOF
 # (Auto-commits on arousal_change > 0.3, new_anatomical_event, somatic_milestone)
 ```
 
-See [docs/quickstart.md](README.md) for complete setup.
+See [docs/quickstart.md](QUICKSTART.md) for complete setup.
 
 ## Documentation
 
