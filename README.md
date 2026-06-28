@@ -1,6 +1,5 @@
 ## 2. README.md
 
-```markdown
 # Veritas Framework v1
 
 > **Unified AI governance for research, narrative, and embodied simulation**
@@ -136,19 +135,18 @@ EOF
 # (Auto-commits on arousal_change > 0.3, new_anatomical_event, somatic_milestone)
 ```
 
-See [docs/quickstart.md](docs/quickstart.md) for complete setup.
+See [docs/quickstart.md](README.md) for complete setup.
 
 ## Documentation
 
-- [Project Vision](project.md) - Philosophy and design goals
-- [Quick Start Guide](quickstart.md) - Installation and first usage
+- [Project Vision](PROJECT.md) - Philosophy and design goals
+- [Quick Start Guide](QUICKSTART.md) - Installation and first usage
 - [API Reference](none setup) - Configuration schema details
 - [Template Guide](v1_format_framework) - 8 output format specifications
 
 ## License
 
 Apache 2.0 - See [LICENSE](LICENSE)
-```
 - [API Reference](none setup) - Configuration schema details
 - [Template Guide](v1_format_framework) - 8 output format specifications
 
