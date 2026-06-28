@@ -5,7 +5,7 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: monospace; color: #fff; padding: 20px;
+    font-family: monospace; color: #fff; 
     background-size: cover; background-position: center; background-attachment: fixed;
     min-height: 100vh;
 }
@@ -14,51 +14,204 @@ body::before {
     background: rgba(0,0,0,0.7); z-index: -1;
 }
 
-#pageName {
-    background: rgba(0,0,0,0.4);
-    border: 1px solid #555;
+/* TOP BAR - Tab Style */
+#topBar {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(40, 40, 50, 0.95);
+    border-bottom: 2px solid rgba(100, 100, 120, 0.5);
+    display: flex; align-items: center; justify-content: center;
+    padding: 8px 20px; gap: 8px;
+    z-index: 100;
+    flex-wrap: wrap;
+}
+
+/* Page Tabs */
+.pageTab {
+    background: rgba(80, 70, 100, 0.6);
+    border: 1px solid rgba(120, 110, 140, 0.4);
+    color: rgba(200, 190, 220, 0.8);
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    min-width: 60px;
+    text-align: center;
+    transition: all 0.2s;
+}
+.pageTab:hover {
+    background: rgba(100, 90, 120, 0.7);
     color: #fff;
-    padding: 4px 8px;
+}
+.pageTab.active {
+    background: rgba(140, 120, 170, 0.8);
+    border-color: rgba(180, 160, 200, 0.6);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(140, 120, 170, 0.4);
+}
+
+/* Control Buttons */
+.ctrlBtn {
+    background: rgba(80, 70, 100, 0.6);
+    border: 1px solid rgba(120, 110, 140, 0.4);
+    color: rgba(200, 190, 220, 0.9);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    min-width: 32px;
+}
+.ctrlBtn:hover {
+    background: rgba(100, 90, 120, 0.8);
+    color: #fff;
+}
+.ctrlBtn.danger:hover {
+    background: rgba(180, 80, 80, 0.8);
+    border-color: rgba(200, 100, 100, 0.6);
+}
+
+/* Page Name Input */
+#pageName {
+    background: rgba(60, 55, 75, 0.8);
+    border: 1px solid rgba(120, 110, 140, 0.5);
+    color: #fff;
+    padding: 6px 12px;
     border-radius: 4px;
     font-family: monospace;
-    font-size: 11px;
-    width: 100px;
+    font-size: 13px;
+    width: 140px;
+    text-align: center;
 }
 #pageName:focus {
-    border-color: #888;
+    border-color: rgba(160, 150, 180, 0.8);
     outline: none;
-    background: rgba(0,0,0,0.7);
+    background: rgba(70, 65, 85, 0.9);
 }
 
-#controls {
-    position: fixed; top: 20px; right: 20px;
-    background: rgba(50,50,50,0.95); padding: 15px; border-radius: 8px;
-    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-    max-width: 450px; z-index: 100;
-    transition: opacity 0.3s, transform 0.3s;
+/* NAV ROW - Below top bar */
+#navRow {
+    position: fixed; top: 50px; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    gap: 15px; padding: 8px;
+    background: rgba(30, 30, 40, 0.9);
+    border-bottom: 1px solid rgba(80, 80, 100, 0.3);
+    z-index: 99;
 }
-body.compact #controls {
+
+.navBtn {
+    background: rgba(60, 60, 80, 0.7);
+    border: 1px solid rgba(100, 100, 120, 0.4);
+    color: rgba(180, 180, 200, 0.9);
+    padding: 4px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+.navBtn:hover {
+    background: rgba(80, 80, 100, 0.9);
+    color: #fff;
+}
+
+/* Hex Toggle Button */
+#hexToggle {
+    color: rgba(180, 170, 200, 0.8);
+    font-size: 13px;
+    padding: 4px 20px;
+    background: rgba(50, 50, 65, 0.6);
+    border-radius: 4px;
+    border: 1px solid rgba(80, 80, 100, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+#hexToggle:hover {
+    background: rgba(70, 70, 90, 0.8);
+    border-color: rgba(120, 120, 140, 0.5);
+}
+#hexToggle.active {
+    background: rgba(140, 120, 170, 0.6);
+    border-color: rgba(180, 160, 200, 0.6);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(140, 120, 170, 0.4);
+}
+
+/* RIGHT SIDE BUTTONS */
+#rightControls {
+    position: fixed; top: 8px; right: 20px;
+    display: flex; gap: 8px; align-items: center;
+    z-index: 101;
+}
+
+/* BOTTOM RIGHT BUTTONS */
+#bottomRight {
+    position: fixed; bottom: 20px; right: 20px;
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 100;
+}
+
+.bottomBtn {
+    background: rgba(80, 70, 100, 0.8);
+    border: 1px solid rgba(120, 110, 140, 0.5);
+    color: rgba(220, 210, 240, 0.95);
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: monospace;
+    transition: all 0.2s;
+    min-width: 100px;
+    text-align: center;
+}
+.bottomBtn:hover {
+    background: rgba(100, 90, 120, 0.9);
+    border-color: rgba(140, 130, 160, 0.7);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* COMPACT MODE */
+body.compact #topBar,
+body.compact #navRow {
+    opacity: 0; pointer-events: none; transform: translateY(-20px);
+}
+body.compact #rightControls {
+    opacity: 0; pointer-events: none;
+}
+body.compact #bottomRight {
     opacity: 0; pointer-events: none; transform: translateX(50px);
 }
-#controls button, #controls label {
-    width: auto; padding: 5px 10px; font-size: 11px; cursor: pointer;
-}
-#pageInfo { color: #aaa; font-size: 12px; min-width: 60px; text-align: center; }
-.toggleRow { width: 100%; display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
 
-#compactBtn {
-    position: fixed; top: 10px; right: 10px; width: 40px; height: 40px;
-    background: rgba(50,50,50,0.9); border: 2px solid #666;
-    border-radius: 8px; cursor: pointer; display: none;
-    z-index: 101; font-size: 20px; color: #fff;
-    align-items: center; justify-content: center;
+/* Show UI Button - appears in bottom right when compact */
+#showUiBtn {
+    position: fixed; bottom: 20px; right: 20px;
+    background: rgba(80, 70, 100, 0.9);
+    border: 2px solid rgba(140, 130, 160, 0.7);
+    color: rgba(220, 210, 240, 0.95);
+    padding: 12px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: monospace;
+    z-index: 200;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: all 0.2s;
 }
-body.compact #compactBtn { display: flex; }
+#showUiBtn:hover {
+    background: rgba(100, 90, 120, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+body.compact #showUiBtn {
+    display: block;
+}
 
+/* HONEYCOMB STYLES */
 .page { display: none; }
 .page.active {
     display: block;
-    margin: 120px auto 0;
+    margin: 110px auto 0;
     max-width: 1400px;
     padding: 0 40px;
 }
@@ -72,17 +225,16 @@ body.compact .page.active { margin-top: 60px; }
 
 .honeycomb-row {
     display: flex;
-    gap: 8px; /* The gap (G) */
+    gap: 8px;
     justify-content: center;
-    margin-bottom: -20.79px; /* The calculated overlap (V) */
+    margin-bottom: -20.79px;
 }
 
 .honeycomb-row.offset {
-    margin-left: 105px; /* The calculated offset (O) */
+    margin-left: 105px;
 }
 
 .hexagon {
-    /* Keep your existing calculated width, height, clip-path, etc. */
     width: 96px; 
     height: 110.85px; 
     display: flex;
@@ -94,19 +246,14 @@ body.compact .page.active { margin-top: 60px; }
     user-select: none;
     transition: transform 0.1s;
     flex-shrink: 0;
-    
-    /* ADD THIS */
     position: relative; 
 }
 
 .hex {
-    /* Positioning it perfectly in the lower center */
     position: absolute;
     bottom: 15px; 
     left: 50%;
     transform: translateX(-50%);
-    
-    /* Styling */
     background: rgba(0,0,0,0.85); 
     color: #fff; 
     padding: 3px 6px;
@@ -115,19 +262,16 @@ body.compact .page.active { margin-top: 60px; }
     white-space: nowrap;
     border-radius: 3px; 
     z-index: 10;
-    
-    /* The hiding mechanism */
     opacity: 0; 
     visibility: hidden; 
     transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-/* Show exactly when the individual hexagon is hovered */
 .hexagon:hover .hex { 
     opacity: 1; 
     visibility: visible;
 }
-/* Update the X button to hide completely */
+
 .x {
     position: absolute; 
     top: 15px; 
@@ -156,19 +300,17 @@ body.compact .page.active { margin-top: 60px; }
     background: rgba(200,50,50,0.9); 
 }
 
-/* Add this for the empty gaps when a hexagon is deleted */
 .hexagon.placeholder {
     background: rgba(0, 0, 0, 0.2); 
     box-shadow: none; 
     cursor: default;
 }
-/* Show all of them when the body gets the 'alwaysHex' class from your checkbox */
+
 body.alwaysHex .hexagon .hex { 
     opacity: 1; 
     visibility: visible;
 }
 
-/* Ensure the addbox perfectly matches the dimensions of the hexagon */
 .addbox {
     width: 96px; 
     height: 110.85px; 
@@ -186,10 +328,10 @@ body.alwaysHex .hexagon .hex {
 
 #inputBox, #exportBox {
     display: none; position: fixed; top: 50%; left: 50%;
-    transform: translate(-50%, -50%); background: rgba(40,40,40,0.98);
+    transform: translate(-50%, -50%); background: rgba(40,40,50,0.98);
     padding: 20px; border-radius: 8px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.9); z-index: 200;
-    border: 1px solid #555;
+    box-shadow: 0 0 30px rgba(0,0,0,0.9); z-index: 300;
+    border: 1px solid rgba(100,100,120,0.5);
 }
 #inputBox textarea, #exportBox textarea {
     width: 400px; height: 200px; padding: 10px;
@@ -197,30 +339,53 @@ body.alwaysHex .hexagon .hex {
     background: #222; color: #fff; border: 1px solid #555;
     resize: vertical; border-radius: 4px;
 }
-#inputBox button, #exportBox button { padding: 10px 20px; margin-top: 10px; cursor: pointer; }
+#inputBox button, #exportBox button { 
+    padding: 10px 20px; margin-top: 10px; cursor: pointer;
+    background: rgba(80,70,100,0.8); border: 1px solid rgba(120,110,140,0.5);
+    color: #fff; border-radius: 4px;
+}
+#inputBox button:hover, #exportBox button:hover {
+    background: rgba(100,90,120,0.9);
+}
 #inputBox .hint, #exportBox .hint { color: #888; font-size: 12px; margin-bottom: 10px; }
 #fileInput { display: none; }
 </style>
 </head>
 <body>
-<button id="compactBtn" onclick="toggleCompact()">⬓</button>
+<!-- Show UI Button - only visible in compact mode -->
+<button id="showUiBtn" onclick="toggleCompact()">Show UI</button>
 
-<div id="controls">
-<button onclick="prevPage()">◀</button>
-    <span id="pageInfo">Page <span id="pageNumber">1</span>/<span id="totalPages">1</span></span>
-    <button onclick="nextPage()">▶</button>
-    <input type="text" id="pageName" placeholder="Name (opt)" oninput="updatePageName(this.value)" autocomplete="off">
-    <button onclick="addPage()">+ Page</button>
-    <button onclick="deletePage()" style="background:#c44;">− Page</button>
-    <button onclick="document.getElementById('fileInput').click()">🖼 Wallpaper</button>
-    <button onclick="clearWallpaperConfirm()">✕</button>
-    <button onclick="exportAll()">📋 Export</button>
-    <button onclick="clearAll()" style="background:#c44;">🗑 Clear</button>
-    <button onclick="toggleCompact()">⬒ Compact</button>
+<!-- TOP BAR with Tabs -->
+<div id="topBar">
+    <!-- Left side tabs -->
+    <div id="leftTabs" style="display: flex; gap: 6px; margin-right: 10px;"></div>
     
-    <div class="toggleRow">
-        <label><input type="checkbox" onchange="toggleHex(this)"> Always Show Hex</label>
-    </div>
+    <!-- Center controls -->
+    <button class="ctrlBtn danger" onclick="deletePage()" title="Delete Page">−</button>
+    <input type="text" id="pageName" placeholder="Page name" oninput="updatePageName(this.value)" autocomplete="off">
+    <button class="ctrlBtn" onclick="addPage()" title="Add Page">+</button>
+    
+    <!-- Right side tabs -->
+    <div id="rightTabs" style="display: flex; gap: 6px; margin-left: 10px;"></div>
+</div>
+
+<!-- NAV ROW -->
+<div id="navRow">
+    <button class="navBtn" onclick="prevPage()">◀</button>
+    <span id="hexToggle" onclick="toggleHex()">Hex</span>
+    <button class="navBtn" onclick="nextPage()">▶</button>
+</div>
+
+<!-- RIGHT SIDE CONTROLS -->
+<div id="rightControls">
+    <button class="ctrlBtn" onclick="document.getElementById('fileInput').click()" title="Set Wallpaper">🖼 Wallpaper</button>
+    <button class="ctrlBtn danger" onclick="clearWallpaperConfirm()" title="Clear Wallpaper">✕</button>
+</div>
+
+<!-- BOTTOM RIGHT -->
+<div id="bottomRight">
+    <button class="bottomBtn" onclick="toggleCompact()">Hide UI</button>
+    <button class="bottomBtn" onclick="exportAll()">Export</button>
 </div>
 
 <input type="file" id="fileInput" accept="image/*" onchange="setWallpaper(this)">
@@ -248,14 +413,12 @@ var currentPage = 0;
 var alwaysHex = false;
 var itemsPerRow = 4;
 
-// NEW: Save data to localStorage
 function saveData() {
     localStorage.setItem('hexlib_pages', JSON.stringify(pages));
     localStorage.setItem('hexlib_pageNames', JSON.stringify(pageNames));
     localStorage.setItem('hexlib_currentPage', currentPage);
 }
 
-// NEW: Load data from localStorage
 function loadData() {
     var savedPages = localStorage.getItem('hexlib_pages');
     var savedNames = localStorage.getItem('hexlib_pageNames');
@@ -274,42 +437,66 @@ function loadData() {
     }
 }
 
+// --- TAB RENDERING ---
+function renderTabs() {
+    var leftContainer = document.getElementById('leftTabs');
+    var rightContainer = document.getElementById('rightTabs');
+    leftContainer.innerHTML = '';
+    rightContainer.innerHTML = '';
+    
+    var mid = Math.ceil(pages.length / 2);
+    
+    pages.forEach(function(page, idx) {
+        var tab = document.createElement('div');
+        tab.className = 'pageTab' + (idx === currentPage ? ' active' : '');
+        tab.textContent = pageNames[idx] || ('tab' + (idx + 1));
+        tab.onclick = function() {
+            currentPage = idx;
+            saveData();
+            renderCurrentPage();
+            renderTabs();
+        };
+        
+        if (idx < mid) {
+            leftContainer.appendChild(tab);
+        } else {
+            rightContainer.appendChild(tab);
+        }
+    });
+}
+
 // --- PAGINATION FUNCTIONS ---
 function prevPage() {
     if (currentPage > 0) {
         currentPage--;
-        saveData(); // Save current page index
+        saveData();
         renderCurrentPage();
+        renderTabs();
     }
 }
 
 function nextPage() {
     if (currentPage < pages.length - 1) {
         currentPage++;
-        saveData(); // Save current page index
+        saveData();
         renderCurrentPage();
+        renderTabs();
     }
 }
 
 function updatePageName(val) {
     pageNames[currentPage] = val;
-    saveData(); // Save when name changes
-}
-
-function updatePageInfo() {
-    document.getElementById('pageNumber').textContent = (currentPage + 1);
-    document.getElementById('totalPages').textContent = pages.length;
-    
-    var nameInput = document.getElementById('pageName');
-    nameInput.value = pageNames[currentPage] || "";
+    saveData();
+    renderTabs();
 }
 
 function addPage() {
     pages.push([]);
-    pageNames.push("");
+    pageNames.push('');
     currentPage = pages.length - 1;
-    saveData(); // Save new page
+    saveData();
     renderCurrentPage();
+    renderTabs();
 }
 
 function deletePage() {
@@ -318,8 +505,9 @@ function deletePage() {
             pages.splice(currentPage, 1);
             pageNames.splice(currentPage, 1);
             if (currentPage >= pages.length) currentPage = pages.length - 1;
-            saveData(); // Save after delete
+            saveData();
             renderCurrentPage();
+            renderTabs();
         }
     } else {
         alert('Cannot delete the last page.');
@@ -388,7 +576,7 @@ function renderCurrentPage() {
                             while(pages[currentPage].length > 0 && pages[currentPage][pages[currentPage].length - 1] === null) {
                                 pages[currentPage].pop();
                             }
-                            saveData(); // Save after drop
+                            saveData();
                             renderCurrentPage();
                         }
                     });
@@ -424,7 +612,9 @@ function renderCurrentPage() {
     
     pageDiv.appendChild(honeycomb);
     container.appendChild(pageDiv);
-    updatePageInfo();
+    
+    // Update page name input
+    document.getElementById('pageName').value = pageNames[currentPage] || '';
 }
 
 function setWallpaper(input) {
@@ -452,18 +642,28 @@ function loadWallpaper() {
 
 function toggleCompact() {
     document.body.classList.toggle('compact');
+    localStorage.setItem('hexlib_compact', document.body.classList.contains('compact'));
 }
 
-function toggleHex(cb) {
-    alwaysHex = cb.checked;
+// Updated: Hex toggle now works by clicking the Hex button
+function toggleHex() {
+    alwaysHex = !alwaysHex;
     document.body.classList.toggle('alwaysHex', alwaysHex);
-    localStorage.setItem('hexlib_alwaysHex', alwaysHex); // Save preference
+    localStorage.setItem('hexlib_alwaysHex', alwaysHex);
+    
+    // Update visual state of the button
+    var hexBtn = document.getElementById('hexToggle');
+    if (alwaysHex) {
+        hexBtn.classList.add('active');
+    } else {
+        hexBtn.classList.remove('active');
+    }
 }
 
 function clearAll() {
     if (confirm('Clear all colors on this page?')) {
         pages[currentPage] = [];
-        saveData(); // Save after clear
+        saveData();
         renderCurrentPage();
     }
 }
@@ -509,7 +709,7 @@ function createHexagon(h, idx) {
             pages[currentPage].pop();
         }
         
-        saveData(); // Save after delete
+        saveData();
         renderCurrentPage();
     };
     d.appendChild(xBtn);
@@ -555,7 +755,7 @@ function createHexagon(h, idx) {
                 pages[currentPage].pop();
             }
             
-            saveData(); // Save after swap
+            saveData();
             renderCurrentPage();
         }
     });
@@ -585,7 +785,7 @@ function addBulk() {
     });
     
     if (added > 0) {
-        saveData(); // Save after adding
+        saveData();
         renderCurrentPage();
         closeBox();
     } else {
@@ -601,6 +801,10 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeBox();
         closeExport();
+        // Also exit compact mode on Escape
+        if (document.body.classList.contains('compact')) {
+            toggleCompact();
+        }
     }
 });
 
@@ -608,19 +812,24 @@ window.addEventListener('resize', function() {
     renderCurrentPage();
 });
 
-// Init - LOAD DATA FIRST, then render
+// Init
 loadData();
 loadWallpaper();
 
-// Load "always show hex" preference
+// Load preferences
 var savedAlwaysHex = localStorage.getItem('hexlib_alwaysHex');
 if (savedAlwaysHex === 'true') {
     alwaysHex = true;
     document.body.classList.add('alwaysHex');
-    var cb = document.querySelector('input[type="checkbox"]');
-    if (cb) cb.checked = true;
+    document.getElementById('hexToggle').classList.add('active');
 }
 
+var savedCompact = localStorage.getItem('hexlib_compact');
+if (savedCompact === 'true') {
+    document.body.classList.add('compact');
+}
+
+renderTabs();
 renderCurrentPage();
 </script>
 </body>
