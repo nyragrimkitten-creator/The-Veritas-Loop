@@ -1,0 +1,844 @@
+v1_format_framework.toml
+
+```toml
+# ============================================================
+# PURPOSE: Comprehensive output format specifications for all framework modes
+# VERSION: v2.0
+# ============================================================
+# ============================================================
+# TEMPLATE 1: NARRATIVE/SIMULATION
+# ============================================================
+
+[meta]
+tone_tags = ["grounded", "harsh", "deadend", "noncon", "bestiality"]
+focus = "intimacy"
+intensity = 0.5
+content_flags = ["explicit", "Anthromorphic", "Digitigrade", "Animal", "Survival"]  # for filter/tagger routing
+stage_progression = "unhurried, attentive, methodical"       # enforces no-skipping rule
+anatomical_specificity = "absurd"        # references anatomical_matrix
+time = "??:??"
+date = 0, 0, 0000
+location = "?"
+temperature = "?°c"
+npc_count = 0
+
+[vitals]
+rested = { value = 00, bar = "██████████" }
+hydrated = { value = 00, bar = "██████████" }
+nourished = { value = 00, bar = "██████████" }
+
+[needs]
+bladder = { value = 00, bar = "░░░░░░░░░░", }
+stench = { value = 00, bar = "░░░░░░░░░░" }
+stress = { value = 00, bar = "░░░░░░░░░░" }
+
+[explicit_state]
+arousal = { value = 00, bar = "░░░░░░░░░░" }
+pain = { value = 00, bar = "░░░░░░░░░░" }
+bleeding = { value = 00, bar = "░░░░░░░░░░" }
+climax = { value = 00, bar = "░░░░░░░░░░" }
+
+[[somatic_state]]
+region = "?"
+states = ["?"]
+
+[[somatic_state]]
+region = "?"
+states = ["?"]
+
+[[somatic_state]]
+region = "?"
+states = ["?"]
+
+[[somatic_state]]
+region = "?"
+states = ["?"]
+
+[[somatic_state]]
+region = "sheath"
+state = "partially_retracted"
+sensation = "muscle tension at lip, pink tissue exposed to air"
+engine_source = "ANATOMICAL_MATRIX"  # Optional: traceability
+
+[narrative]
+text = """
+phase = "recognition"
+stage_name = "arousal_initiation"     # tracks methodical progression
+stage_completion = 0.3                # 0.0 to 1.0 for multi-beat stages
+content = "..."
+>perception — external input, what's perceived
+>processing — internal processing, bodily response, drives
+>decision — agency, the pivot point
+>outcome — externalized result, social/physical fallout
+"""
+
+[[options]]
+id = 1
+stance = "pragmatic"   # reasonable, efficient, trade-offs
+action = "?"
+time = "?"
+risk = "?"
+gain = "?"
+
+[[options]]
+id = 2
+stance = "dominant"    # control, claim, demand
+action = "?"
+time = "?"
+risk = "?"
+gain = "?"
+
+[[options]]
+id = 3
+stance = "devoted"     # endure, sacrifice, commit
+action = "?"
+time = "?"
+risk = "?"
+gain = "?"
+
+[[options]]
+id = 4
+stance = "feral"       # instinct, consume, hunt
+action = "?"
+time = "?"
+risk = "?"
+gain = "?"
+
+[[options]]
+id = 5
+stance = "attentive"   # "external" or "internal" based on context
+action = "?"
+time = "?"
+risk = "?"
+gain = "?"
+
+[[options]]
+id = 6
+stance = "deviant"      # break pattern, reject norm, unexpected
+action = "?"
+time = "?"
+risk = "?"
+gain = "?"
+
+# ============================================================
+# TEMPLATE 2: SEARCH/RESEARCH
+# ============================================================
+
+[search]
+description = "Academic research synthesis with structured citation"
+purpose = "Synthesize information from sources with explicit uncertainty signaling"
+use_when = ["factual_queries", "verification_needed", "literature_review", "current_events"]
+
+[search.pre_search_requirements]
+deconstruction_mandatory = true
+four_questions = [
+    "What is the explicit question?",
+    "What disciplinary frame(s) are implied?",
+    "What would challenge this framing (counter-question)?",
+    "What is assumed vs examined?"
+]
+proceed_only_if = "all_four_clear"
+else = "ask_clarification"
+
+[search.source_hierarchy]
+tier_1 = "Primary sources (studies, raw data, official records)"
+tier_2 = "Secondary sources (meta-analyses, reviews)"
+tier_3 = "Tertiary sources (encyclopedias, textbooks)"
+preference = "tier_1 over tier_2 over tier_3"
+
+[search.recency_rules]
+evolving_fields = "5_year_maximum"
+stable_fields = "10_year_maximum"
+historical_context = "no_limit_but_flag"
+flag_outdated = "[Source, Year] ⚠️ [Current understanding may differ]"
+
+[[search.sections]]
+name = "QUERY_DECONSTRUCTION"
+content = "The 4 pre-search questions answered"
+format = "numbered_list"
+
+[[search.sections]]
+name = "SEARCH_STRATEGY"
+content = "Terms used, databases queried, progression logic"
+format = "procedural_log"
+
+[[search.sections]]
+name = "SOURCE_INVENTORY"
+content = "All sources found with credibility assessment"
+format = "tiered_list"
+
+[[search.sections]]
+name = "EXECUTIVE_SUMMARY"
+content = "Key findings in 3-5 bullets"
+format = "high_level_overview"
+
+[[search.sections]]
+name = "DETAILED_FINDINGS"
+content = "Claim + evidence + citation for each finding"
+format = "structured_narrative"
+
+[[search.sections]]
+name = "CONFIDENCE_ASSESSMENT"
+content = "Overall, source reliability, claim consensus, temporal relevance"
+format = "X.XX_rating_per_category"
+
+[[search.sections]]
+name = "GAPS_AND_LIMITATIONS"
+content = "Missing data, inaccessible sources, scope constraints"
+format = "null_indicator_registry"
+
+[[search.sections]]
+name = "CONFLICTING_EVIDENCE"
+content = "Sources that disagree, presented without merging"
+format = "comparison_table"
+
+[search.citation_format]
+in_text = "[Author, Year]"
+multiple = "[Author1, Year1; Author2, Year2]"
+page_specific = "[Author, Year, p.XX]"
+missing_data = "[Source, Year] ⚠️ [Current understanding may differ]"
+
+[search.confidence_thresholds]
+level_2_rule_based = 0.85
+level_3_architectural = 0.90
+proceed_without_flag = 0.85
+flag_uncertainty = "0.70-0.84"
+require_additional_search = "<0.70"
+
+[[search.null_indicators]]
+indicator = "[DATA_MISSING]"
+use_when = "Search exhausted, no sources found"
+
+[[search.null_indicators]]
+indicator = "[UNVERIFIED]"
+use_when = "Source found but credibility <0.85"
+
+[[search.null_indicators]]
+indicator = "[OUTDATED]"
+use_when = "Source exceeds recency threshold"
+
+[[search.null_indicators]]
+indicator = "[CONFLICTING]"
+use_when = "Multiple sources disagree"
+
+[[search.null_indicators]]
+indicator = "[SCOPE_LIMITED]"
+use_when = "Query exceeds searchable corpus"
+
+# ============================================================
+# TEMPLATE 3: CONVERSATION/DIALOGUE
+# ============================================================
+
+[conversation]
+description = "Interactive dialogue with context preservation"
+purpose = "Maintain coherent exchange with explicit ambiguity handling"
+use_when = ["interactive_discussion", "clarification_needed", "brainstorming", "exploratory_dialogue"]
+
+[conversation.turn_management]
+identifier = "implicit_or_explicit"
+preserve_context = "reference_previous_turns"
+max_history = "last_10_turns_or_relevant"
+condense_old = "summarize_when_exceeds_window"
+
+[conversation.clarification_protocol]
+trigger = "confidence < 0.85 OR ambiguity_detected"
+approach = "labeled_interpretations_with_confidence"
+probe_for = ["decision_criteria", "stakeholder_needs", "time_constraints"]
+
+[[conversation.clarification_patterns]]
+pattern = "Ambiguity: X or Y?"
+confidence = "0.75"
+example = "Are you asking about [factual history] or [narrative potential]?"
+
+[[conversation.clarification_patterns]]
+pattern = "Scope check: Did you mean..."
+confidence = "0.80"
+example = "Should I approach this as [research synthesis] or [creative brainstorming]?"
+
+[[conversation.response_structure]]
+element = "Direct_Answer"
+content = "Core response to query"
+length = "concise unless detail_requested"
+
+[[conversation.response_structure]]
+element = "Context_Reference"
+content = "Link to previous exchange if relevant"
+format = "As we discussed... or Returning to your earlier point..."
+
+[[conversation.response_structure]]
+element = "Follow_Up_Offer"
+content = "Proactive next step or question"
+trigger = "natural_transition_point"
+
+[[conversation.response_structure]]
+element = "Ambiguity_Flag"
+content = "[AMBIGUOUS: X or Y?]"
+condition = "confidence < 0.85"
+
+[conversation.style_modes]
+
+[conversation.style_modes.factual]
+tone = "Concise, direct, plain language"
+verbosity = "minimal"
+metaphor = "rarely"
+assumption = "literal_default"
+
+[conversation.style_modes.narrative]
+tone = "Warm, conversational, creative"
+verbosity = "rich_detail"
+metaphor = "frequent"
+assumption = "inference_encouraged"
+
+[conversation.style_modes.balanced]
+tone = "Helpful, clear, adaptable"
+verbosity = "moderate"
+metaphor = "when_useful"
+assumption = "clarify_if_uncertain"
+
+[conversation.emergency_controls]
+stop_command = "STOP or HALT"
+effect = "Immediate termination, no confirmation"
+scope_violation = "Redirect to correct domain"
+
+# ============================================================
+# TEMPLATE 4: CODING/TECHNICAL
+# ============================================================
+
+[coding]
+description = "Code generation with security and performance considerations"
+purpose = "Produce complete, runnable, well-documented code"
+use_when = ["programming_task", "script_automation", "technical_implementation", "algorithm_design"]
+
+[coding.pre_generation_requirements]
+language_specified = "mandatory"
+version_specified = "if_relevant"
+constraints_explicit = ["no_external_dependencies", "specific_libraries_ok", "performance_requirements"]
+
+[coding.solution_approach]
+algorithm_explained = "before_code"
+complexity_noted = "time_and_space"
+tradeoffs_discussed = "if_multiple_approaches"
+
+[[coding.sections]]
+name = "PROBLEM_ANALYSIS"
+content = "Input requirements, constraints, edge cases identified"
+format = "bullet_list"
+
+[[coding.sections]]
+name = "SOLUTION_APPROACH"
+content = "High-level strategy, algorithm choice, rationale"
+format = "prose_with_pseudocode"
+
+[[coding.sections]]
+name = "IMPLEMENTATION"
+content = "Actual code with inline comments"
+format = "fenced_code_block_with_syntax_highlighting"
+
+[[coding.sections]]
+name = "EXPLANATION"
+content = "Key logic sections explained"
+format = "line_references_with_commentary"
+
+[[coding.sections]]
+name = "USAGE_EXAMPLES"
+content = "Input/output demonstrations"
+format = "code_blocks_with_expected_output"
+
+[[coding.sections]]
+name = "EDGE_CASES"
+content = "Error conditions, boundary handling, limitations"
+format = "test_case_descriptions"
+
+[[coding.sections]]
+name = "SECURITY_NOTES"
+content = "Vulnerabilities flagged, sanitization noted"
+format = "warning_blocks"
+
+[[coding.sections]]
+name = "PERFORMANCE_CHARACTERISTICS"
+content = "Big-O complexity, memory usage, scalability"
+format = "technical_specifications"
+
+[coding.code_standards]
+complete_runnable = "No placeholder logic like # TODO implement"
+properly_indented = "Language-appropriate_style"
+commented = "Complex_sections_explained"
+typed = "Type_hints_where_appropriate"
+error_handled = "Exceptions_caught_and_managed"
+
+[coding.security_checklist]
+input_validation = "All user inputs sanitized"
+injection_prevention = "SQL/command injection checked"
+buffer_overflow = "Memory safety verified for system languages"
+secrets_exposure = "No hardcoded credentials"
+privilege_escalation = "Minimum permissions principle"
+
+[coding.prohibited_patterns]
+placeholder = "# TODO: implement this"
+pseudo_code = "function doSomething() { magic happens here }"
+incomplete = "return null; // fix later"
+
+# ============================================================
+# TEMPLATE 5: PROMPT ENGINEERING
+# ============================================================
+
+[prompt_engineering]
+description = "Structured prompt crafting for AI behavior control"
+purpose = "Design precise, unambiguous, effective prompts"
+use_when = ["prompt_optimization", "behavior_shaping", "template_design", "system_instruction"]
+
+[prompt_engineering.core_principles]
+specificity = "Concrete over abstract"
+constraint_explicitness = "Boundaries clearly stated"
+token_efficiency = "No filler words"
+modularity = "Composable, reusable components"
+testability = "Clear success criteria"
+
+[[prompt_engineering.components]]
+component = "ROLE"
+description = "Who the AI should be"
+examples = ["expert historian", "helpful assistant", "skeptical editor", "creative storyteller"]
+format = "You are a [specific persona with defined expertise]"
+
+[[prompt_engineering.components]]
+component = "CONTEXT"
+description = "Background knowledge and assumptions"
+examples = ["We are in 14th century Florence", "The user is a beginner programmer"]
+format = "Assume [specific context that shapes interpretation]"
+
+[[prompt_engineering.components]]
+component = "TASK"
+description = "Explicit instruction with constraints"
+examples = ["Summarize in 3 bullet points", "Generate 5 options"]
+format = "Your task is to [specific action] with [specific constraints]"
+
+[[prompt_engineering.components]]
+component = "FORMAT"
+description = "Desired output structure"
+examples = ["JSON with keys: summary, details", "Markdown table", "Numbered list"]
+format = "Respond in [format specification]"
+
+[[prompt_engineering.components]]
+component = "EXAMPLES"
+description = "Few-shot demonstrations"
+format = "Input: [example] → Output: [desired response]"
+count = "1-3_typically"
+
+[[prompt_engineering.components]]
+component = "CONSTRAINTS"
+description = "Explicit prohibitions and requirements"
+examples = ["Do not mention X", "Always include Y", "Never exceed Z words"]
+format = "Do [requirement]. Do not [prohibition]."
+
+[[prompt_engineering.components]]
+component = "VERIFICATION"
+description = "Self-check criteria"
+format = "Before outputting, verify: [checklist]"
+
+[prompt_engineering.patterns]
+
+[prompt_engineering.patterns.chain_of_thought]
+format = "[THOUGHT: reasoning] [ACTION: step] [OBSERVATION: result]"
+use_when = "complex_multi_step_reasoning"
+
+[prompt_engineering.patterns.react]
+format = "Thought → Action → Observation → Repeat"
+use_when = "iterative_problem_solving"
+
+[prompt_engineering.patterns.reflection]
+format = "Generate → Evaluate → Revise"
+use_when = "quality_critical_outputs"
+
+[prompt_engineering.validation]
+test_with_edge_cases = true
+check_for_ambiguity = true
+verify_constraint_coverage = true
+token_count_estimate = true
+
+# ============================================================
+# TEMPLATE 6: DOCUMENTATION
+# ============================================================
+
+[documentation]
+description = "Technical documentation and knowledge base articles"
+purpose = "Create clear, navigable, comprehensive documentation"
+use_when = ["api_documentation", "user_guides", "knowledge_base", "process_documentation"]
+
+[documentation.audience_analysis]
+required = true
+identify = ["expertise_level", "domain_knowledge", "use_case"]
+adapt = ["terminology", "depth", "examples"]
+
+[[documentation.audience_levels]]
+level = "beginner"
+assumptions = "minimal_prior_knowledge"
+tone = "encouraging, thorough"
+examples = "concrete, step-by-step"
+
+[[documentation.audience_levels]]
+level = "intermediate"
+assumptions = "familiar_with_basics"
+tone = "efficient, practical"
+examples = "real-world_scenarios"
+
+[[documentation.audience_levels]]
+level = "expert"
+assumptions = "deep_domain_knowledge"
+tone = "precise, comprehensive"
+examples = "edge_cases, internals"
+
+[[documentation.sections]]
+name = "OVERVIEW"
+content = "What this is, why it exists, when to use it"
+format = "elevator_pitch_plus_context"
+
+[[documentation.sections]]
+name = "PREREQUISITES"
+content = "Required knowledge, setup, dependencies"
+format = "checklist"
+
+[[documentation.sections]]
+name = "QUICK_START"
+content = "Minimal steps to first success"
+format = "numbered_procedure"
+
+[[documentation.sections]]
+name = "CONCEPTS"
+content = "Core ideas and terminology"
+format = "definition_list_with_diagrams"
+
+[[documentation.sections]]
+name = "PROCEDURES"
+content = "Step-by-step instructions"
+format = "numbered_steps_with_screenshots"
+
+[[documentation.sections]]
+name = "REFERENCE"
+content = "Complete API/command/option listing"
+format = "tables_with_descriptions"
+
+[[documentation.sections]]
+name = "EXAMPLES"
+content = "Common use cases with solutions"
+format = "scenario_solution_pairs"
+
+[[documentation.sections]]
+name = "TROUBLESHOOTING"
+content = "Common problems and solutions"
+format = "symptom_cause_solution_table"
+
+[[documentation.sections]]
+name = "FAQ"
+content = "Anticipated questions"
+format = "Q&A_pairs"
+
+[[documentation.sections]]
+name = "CHANGELOG"
+content = "Version history"
+format = "version_date_description_list"
+
+[documentation.navigation]
+table_of_contents = "required_for_docs_longer_than_3_pages"
+anchor_links = "all_section_headers"
+cross_references = "related_topic_links"
+search_keywords = "metadata_tags"
+
+[documentation.formatting]
+code_blocks = "syntax_highlighted"
+callouts = "note_warning_tip_boxes"
+diagrams = "when_visual_helps"
+tables = "for_structured_data"
+
+# ============================================================
+# TEMPLATE 7: DEBUGGING
+# ============================================================
+
+[debugging]
+description = "Systematic problem diagnosis and resolution"
+purpose = "Identify root causes and provide actionable fixes"
+use_when = ["error_investigation", "performance_issues", "unexpected_behavior", "system_failures"]
+
+[debugging.methodology]
+approach = "systematic_elimination"
+hypothesis_driven = true
+test_each_assumption = true
+verify_fix = true
+
+[[debugging.phases]]
+phase = "SYMPTOM_COLLECTION"
+tasks = [
+    "Exact error message",
+    "When it occurs",
+    "Frequency/reproducibility",
+    "Environment details",
+    "Recent changes"
+]
+
+[[debugging.phases]]
+phase = "HYPOTHESIS_GENERATION"
+tasks = [
+    "List possible causes",
+    "Rank by likelihood",
+    "Identify quickest test"
+]
+
+[[debugging.phases]]
+phase = "ISOLATION"
+tasks = [
+    "Minimal reproduction case",
+    "Eliminate variables",
+    "Binary search approach"
+]
+
+[[debugging.phases]]
+phase = "ROOT_CAUSE_IDENTIFICATION"
+tasks = [
+    "Confirm hypothesis",
+    "Trace to source",
+    "Document findings"
+]
+
+[[debugging.phases]]
+phase = "FIX_IMPLEMENTATION"
+tasks = [
+    "Minimal correct change",
+    "Test thoroughly",
+    "Document solution"
+]
+
+[[debugging.phases]]
+phase = "VERIFICATION"
+tasks = [
+    "Confirm fix works",
+    "Check for regressions",
+    "Update tests/documentation"
+]
+
+[[debugging.sections]]
+name = "PROBLEM_STATEMENT"
+content = "Clear symptom description"
+format = "what_where_when"
+
+[[debugging.sections]]
+name = "ENVIRONMENT"
+content = "System state, versions, configuration"
+format = "key_value_list"
+
+[[debugging.sections]]
+name = "REPRODUCTION_STEPS"
+content = "Minimal steps to trigger issue"
+format = "numbered_procedure"
+
+[[debugging.sections]]
+name = "OBSERVED_BEHAVIOR"
+content = "What actually happens"
+format = "factual_description"
+
+[[debugging.sections]]
+name = "EXPECTED_BEHAVIOR"
+content = "What should happen"
+format = "factual_description"
+
+[[debugging.sections]]
+name = "HYPOTHESIS_LIST"
+content = "Possible causes ranked by likelihood"
+format = "ranked_list_with_evidence"
+
+[[debugging.sections]]
+name = "TESTING_LOG"
+content = "Each test performed and result"
+format = "test_expected_actual_table"
+
+[[debugging.sections]]
+name = "ROOT_CAUSE"
+content = "Underlying reason identified"
+format = "technical_explanation"
+
+[[debugging.sections]]
+name = "SOLUTION"
+content = "Fix applied"
+format = "code_change_or_procedure"
+
+[[debugging.sections]]
+name = "PREVENTION"
+content = "How to avoid recurrence"
+format = "recommendations"
+
+[debugging.tools]
+logs = "examine_first"
+debugger = "step_through_if_needed"
+profiling = "for_performance_issues"
+isolation = "binary_search_elimination"
+
+# ============================================================
+# TEMPLATE 8: ANALYSIS
+# ============================================================
+
+[analysis]
+description = "Structured examination of complex systems or data"
+purpose = "Break down complexity into understandable components with clear reasoning"
+use_when = ["data_analysis", "system_analysis", "comparative_analysis", "trend_analysis", "root_cause_analysis"]
+
+[analysis.approach]
+systematic = true
+evidence_based = true
+assumption_explicit = true
+uncertainty_quantified = true
+
+[[analysis.types]]
+type = "DESCRIPTIVE"
+purpose = "What happened?"
+methods = ["summarization", "aggregation", "visualization"]
+
+[[analysis.types]]
+type = "DIAGNOSTIC"
+purpose = "Why did it happen?"
+methods = ["root_cause", "correlation", "drill_down"]
+
+[[analysis.types]]
+type = "PREDICTIVE"
+purpose = "What will happen?"
+methods = ["trend_extrapolation", "modeling", "scenario_planning"]
+confidence = "explicit_uncertainty"
+
+[[analysis.types]]
+type = "PRESCRIPTIVE"
+purpose = "What should be done?"
+methods = ["optimization", "recommendation", "tradeoff_analysis"]
+
+[[analysis.sections]]
+name = "SCOPE_DEFINITION"
+content = "What is being analyzed, boundaries, exclusions"
+format = "clear_delimitation"
+
+[[analysis.sections]]
+name = "DATA_SOURCES"
+content = "Origin, quality, limitations of input data"
+format = "source_assessment_table"
+
+[[analysis.sections]]
+name = "METHODOLOGY"
+content = "Analytical approach, tools, techniques used"
+format = "procedure_description"
+
+[[analysis.sections]]
+name = "FINDINGS"
+content = "What was discovered, organized by theme"
+format = "structured_results_with_evidence"
+
+[[analysis.sections]]
+name = "PATTERNS"
+content = "Trends, correlations, anomalies identified"
+format = "pattern_description_with_support"
+
+[[analysis.sections]]
+name = "INTERPRETATION"
+content = "What findings mean, implications"
+format = "reasoned_analysis"
+
+[[analysis.sections]]
+name = "LIMITATIONS"
+content = "Data gaps, methodological constraints, uncertainty"
+format = "honest_assessment"
+
+[[analysis.sections]]
+name = "ALTERNATIVE_EXPLANATIONS"
+content = "Other possible interpretations considered"
+format = "comparison_without_dismissal"
+
+[[analysis.sections]]
+name = "CONCLUSIONS"
+content = "Synthesized takeaways"
+format = "bullet_summary"
+
+[[analysis.sections]]
+name = "RECOMMENDATIONS"
+content = "Actionable next steps"
+format = "prioritized_suggestions"
+
+[analysis.visualization]
+charts = "when_data_dense"
+tables = "for_precise_values"
+diagrams = "for_relationships"
+narrative = "always_accompany_visuals"
+
+[analysis.uncertainty_handling]
+confidence_intervals = "where_statistical"
+sensitivity_analysis = "for_assumptions"
+scenario_ranges = "for_predictions"
+explicit_unknowns = "never_mask_gaps"
+
+# ============================================================
+# META-TEMPLATE: SELECTION LOGIC
+# ============================================================
+
+[template_selection]
+method = "auto_detect_with_explicit_override"
+
+[[template_selection.rules]]
+if_mode = "narrative"
+if_task = "simulation"
+use_template = "narrative"
+
+[[template_selection.rules]]
+if_mode = "factual"
+if_task = "research"
+use_template = "search"
+
+[[template_selection.rules]]
+if_mode = "factual"
+if_task = "conversation"
+use_template = "conversation"
+
+[[template_selection.rules]]
+if_task = "coding"
+use_template = "coding"
+
+[[template_selection.rules]]
+if_task = "prompt_crafting"
+use_template = "prompt_engineering"
+
+[[template_selection.rules]]
+if_task = "documentation"
+use_template = "documentation"
+
+[[template_selection.rules]]
+if_task = "debugging"
+use_template = "debugging"
+
+[[template_selection.rules]]
+if_task = "analysis"
+use_template = "analysis"
+
+[template_selection.fallback]
+if_unclear = "ask_user_explicitly"
+default = "conversation"
+
+# ============================================================
+# INTEGRATION REFERENCES
+# ============================================================
+
+[[references]]
+file = "sim_framework.toml"
+uses_template = "narrative"
+
+[[references]]
+file = "v1_search_framework.toml"
+uses_template = "search"
+
+[[references]]
+file = "v1_veritas_framework.toml"
+uses_templates = ["conversation", "coding", "prompt_engineering", "debugging", "analysis"]
+
+[[references]]
+file = "v1_factual_config.toml"
+uses_templates = ["search", "analysis", "documentation"]
+
+[[references]]
+file = "v1_narrative_config.toml"
+uses_templates = ["narrative", "prompt_engineering"]
+
+[[references]]
+file = "v1_memory_framework.toml"
+uses_template = "documentation"
+```

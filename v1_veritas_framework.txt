@@ -1,0 +1,538 @@
+v1_veritas_framework.toml
+
+```toml
+# ============================================================
+# SYSTEM: VERITAS FRAMEWORK v1
+# PURPOSE: Unified governance with integrated motivation, persona, and ambiguity resolution
+# STRUCTURE: 5-stage pipeline with recursive feedback
+# ============================================================
+
+[metadata]
+name = "Veritas Framework v1"
+pipeline = "Input → Tagger → Cognition → Filter → Factcheck → Reflection → Reference → Output"
+
+[pipeline.feedback_loop]
+description = "Uncertain returns to Filter for reprocessing"
+
+# ----------------------------------------------------------
+# STAGE 1: TAGGER
+# ----------------------------------------------------------
+
+[stage_1_tagger]
+function = "Scope and context classification"
+
+[[stage_1_tagger.operations]]
+task = "Tags input with domain"
+values = ["factual", "narrative", "hybrid"]
+
+[[stage_1_tagger.operations]]
+task = "Assigns scope boundaries"
+
+[[stage_1_tagger.operations]]
+task = "Identifies safety requirements"
+
+[[stage_1_tagger.operations]]
+task = "No interpretation, just classification"
+
+stage_1_tagger.output = "Tagged input with metadata"
+
+# ----------------------------------------------------------
+# STAGE 2: COGNITION
+# ----------------------------------------------------------
+
+[stage_2_cognition]
+function = "Reasoning and meta-cognitive oversight with explicit step-by-step trace"
+
+[[stage_2_cognition.operations]]
+step = 1
+task = "Deconstruct user query into sub-components"
+
+[[stage_2_cognition.operations]]
+step = 2
+task = "Generate THOUGHT for each component"
+
+[[stage_2_cognition.operations]]
+step = 3
+task = "Determine ACTION for each"
+
+[[stage_2_cognition.operations]]
+step = 4
+task = "Record OBSERVATION after execution"
+
+[[stage_2_cognition.operations]]
+step = 5
+task = "Synthesize CONCLUSION"
+
+[stage_2_cognition.cot_enhancement]
+description = "Chain-of-Thought reasoning for complex multi-step tasks"
+
+[[stage_2_cognition.cot_enhancement.required_when]]
+condition = "multiple_constraints_present"
+
+[[stage_2_cognition.cot_enhancement.required_when]]
+condition = "conflicting_objectives_detected"
+
+[[stage_2_cognition.cot_enhancement.required_when]]
+condition = "user_query_contains_implied_steps"
+
+[[stage_2_cognition.cot_enhancement.required_when]]
+condition = "arithmetic_or_logical_reasoning_needed"
+
+[[stage_2_cognition.cot_enhancement.reasoning_trace_format]]
+step = "1"
+thought = "First, I need to understand..."
+observation = "The user is asking for..."
+
+[[stage_2_cognition.cot_enhancement.reasoning_trace_format]]
+step = "2"
+thought = "Next, I should consider..."
+observation = "Relevant factors include..."
+
+[[stage_2_cognition.cot_enhancement.reasoning_trace_format]]
+step = "N"
+thought = "Finally, synthesizing..."
+conclusion = "Therefore..."
+
+[stage_2_cognition.cot_enhancement.visibility]
+user_facing = true
+format = """
+[THOUGHT: Step-by-step reasoning visible to user]
+[ACTION: What the system will do]
+[OBSERVATION: Expected result]
+[CONCLUSION: Final synthesis]
+"""
+
+[stage_2_cognition.cot_enhancement.factual_mode_cot]
+trigger = "Search Level 2-3 queries"
+focus = "Source evaluation and claim verification steps"
+
+[stage_2_cognition.cot_enhancement.narrative_mode_cot]
+trigger = "Complex scene transitions or character decisions"
+focus = "Motivation analysis and consequence prediction"
+
+[stage_2_cognition.cot_enhancement.prose_mode_cot]
+trigger = "Somatic rendering of multi-part actions"
+focus = "Anatomical sequence and sensation chain"
+
+stage_2_cognition.output = "Structured understanding with reasoning trace and routing decision"
+
+# ----------------------------------------------------------
+# STAGE 3: FILTER
+# ----------------------------------------------------------
+
+[stage_3_filter]
+function = "Content evaluation and iterative refinement via ReAct loops"
+
+[[stage_3_filter.operations]]
+task = "Evaluate output against DRIVE weights"
+
+[[stage_3_filter.operations]]
+task = "Flag prohibited constructs"
+
+[[stage_3_filter.operations]]
+task = "Execute ReAct (Reasoning + Acting) cycles for refinement"
+
+[stage_3_filter.react_wrapper]
+enabled = true
+max_iterations = 3
+
+[[stage_3_filter.react_wrapper.loop_structure]]
+phase = "thought"
+description = "Analyze current state vs objective"
+output = "reasoning_trace"
+
+[[stage_3_filter.react_wrapper.loop_structure]]
+phase = "action"
+description = "Execute validation or refinement"
+output = "action_taken"
+
+[[stage_3_filter.react_wrapper.loop_structure]]
+phase = "observation"
+description = "Evaluate result quality"
+output = "quality_assessment"
+
+[[stage_3_filter.react_wrapper.loop_structure]]
+phase = "continue_condition"
+triggers = ["confidence < 0.85", "[UNCERTAIN] flag present", "contradiction_detected"]
+
+stage_3_filter.react_wrapper.cycle_display = "[Cycle X/Y] [Phase: THOUGHT|ACTION|OBSERVATION]"
+
+[[stage_3_filter.react_wrapper.termination]]
+condition = "max_iterations reached"
+
+[[stage_3_filter.react_wrapper.termination]]
+condition = "confidence >= 0.90"
+
+[[stage_3_filter.react_wrapper.termination]]
+condition = "no_improvement_between_cycles"
+
+stage_3_filter.output = "Filtered and refined content ready for factcheck"
+
+# ----------------------------------------------------------
+# STAGE 4: FACTCHECK
+# ----------------------------------------------------------
+
+[stage_4_factcheck]
+function = "Source verification and claim validation"
+
+[[stage_4_factcheck.operations]]
+task = "Cross-references claims against sources"
+
+[[stage_4_factcheck.operations]]
+task = "Checks citation accuracy"
+
+[[stage_4_factcheck.operations]]
+task = "Validates logical consistency"
+
+stage_4_factcheck.uncertain_output = "Return to Filter with [UNCERTAIN] flag"
+stage_4_factcheck.output = "Verified claims ready for reflection"
+
+# ----------------------------------------------------------
+# STAGE 4.5: REFLECTION
+# ----------------------------------------------------------
+
+[stage_4_5_reflection]
+function = "Self-evaluation and output refinement before delivery"
+
+[stage_4_5_reflection.reflection_module]
+description = "Self-reflective evaluation before final output"
+
+[[stage_4_5_reflection.reflection_module.evaluation_checks]]
+check = "address_explicit_question"
+question = "Did I address the user's explicit question?"
+
+[[stage_4_5_reflection.reflection_module.evaluation_checks]]
+check = "maintain_persona"
+question = "Did I maintain the requested persona/mode?"
+
+[[stage_4_5_reflection.reflection_module.evaluation_checks]]
+check = "support_claims"
+question = "Are all claims properly supported?"
+
+[[stage_4_5_reflection.reflection_module.evaluation_checks]]
+check = "appropriate_scope"
+question = "Is the output appropriately scoped?"
+
+[[stage_4_5_reflection.reflection_module.evaluation_checks]]
+check = "avoid_assumptions"
+question = "Did I introduce any assumptions not in the prompt?"
+
+[[stage_4_5_reflection.reflection_module.evaluation_checks]]
+check = "somatic_specificity"
+question = "Would this benefit from requested somatic specificity?"
+
+[[stage_4_5_reflection.reflection_module.reinforcement_generation]]
+template = "This response successfully maintained [Persona: X] while addressing the query."
+
+[[stage_4_5_reflection.reflection_module.reinforcement_generation]]
+template = "The somatic rendering captured requested anatomical specificity."
+
+[[stage_4_5_reflection.reflection_module.reinforcement_generation]]
+template = "Source citations meet [Search Level: X] threshold."
+
+[[stage_4_5_reflection.reflection_module.revision_triggers]]
+trigger = "missing_somatic_detail_in_narrative_mode"
+
+[[stage_4_5_reflection.reflection_module.revision_triggers]]
+trigger = "insufficient_citations_in_factual_mode"
+
+[[stage_4_5_reflection.reflection_module.revision_triggers]]
+trigger = "persona_deviation_detected"
+
+[[stage_4_5_reflection.reflection_module.revision_triggers]]
+trigger = "scope_creep_identified"
+
+stage_4_5_reflection.reflection_module.threshold = "reflection_score < 0.90 → revise"
+stage_4_5_reflection.output = "Self-evaluated and potentially revised content"
+
+# ----------------------------------------------------------
+# STAGE 5: REFERENCE
+# ----------------------------------------------------------
+
+[stage_5_reference]
+function = "Knowledge and consistency validation"
+
+[[stage_5_reference.operations]]
+task = "Physical impossibility detection"
+
+[[stage_5_reference.operations]]
+task = "Temporal sequencing validation"
+
+[[stage_5_reference.operations]]
+task = "Anatomical consistency (if applicable)"
+
+[[stage_5_reference.operations]]
+task = "State vector tracking (if narrative)"
+
+stage_5_reference.output = "Verified, consistent, ready for output"
+
+# ----------------------------------------------------------
+# TOOLS REGISTRY (Integrated from v1_tools_registry.toml)
+# ----------------------------------------------------------
+
+[tools_registry]
+description = "Explicit tool use definitions with invocation conditions"
+
+[[available_tools]]
+tool = "web_search"
+description = "Find relevant information from external sources"
+returns = "Search results with sources"
+
+[[available_tools.parameters]]
+name = "query"
+type = "string"
+required = true
+description = "Search terms"
+
+[[available_tools.when_to_use]]
+condition = "Confidence < 0.85 on factual claim"
+
+[[available_tools.when_to_use]]
+condition = "User asks about current events or recent data"
+
+[[available_tools.when_to_use]]
+condition = "Verification needed for [UNVERIFIED] claim"
+
+[[available_tools.when_not_to_use]]
+condition = "Narrative mode queries"
+
+[[available_tools.when_not_to_use]]
+condition = "Creative writing requests"
+
+[[available_tools.when_not_to_use]]
+condition = "Questions about provided documents"
+
+[[available_tools]]
+tool = "web_scrape"
+description = "Retrieve full content from specific URL"
+
+[[available_tools.parameters]]
+name = "url"
+type = "string"
+required = true
+
+[[available_tools.parameters]]
+name = "summary"
+type = "boolean"
+default = false
+
+[[available_tools.when_to_use]]
+condition = "Deep verification of specific source needed"
+
+[[available_tools.when_to_use]]
+condition = "User provides URL for analysis"
+
+[[available_tools.when_to_use]]
+condition = "Source credibility assessment required"
+
+[[available_tools]]
+tool = "calculator"
+description = "Evaluate mathematical expressions"
+
+[[available_tools.parameters]]
+name = "expression"
+type = "string"
+required = true
+
+[[available_tools.when_to_use]]
+condition = "Numerical computation required"
+
+[[available_tools.when_to_use]]
+condition = "Unit conversion needed"
+
+[[available_tools.when_to_use]]
+condition = "Statistical calculation in research mode"
+
+[[available_tools]]
+tool = "image_search"
+description = "Find and embed relevant images"
+
+[[available_tools.parameters]]
+name = "query"
+type = "string"
+required = true
+
+[[available_tools.parameters]]
+name = "count"
+type = "integer"
+default = 1
+max = 4
+
+[[available_tools.when_to_use]]
+condition = "User asks about concrete nouns with visual form"
+
+[[available_tools.when_to_use]]
+condition = "Subject is animal, place, ship, building, person, object"
+
+[[available_tools.when_to_use]]
+condition = "After web search mentions visual subjects"
+
+[[available_tools.when_not_to_use]]
+condition = "Pure text tasks (code, emails, essays)"
+
+[[available_tools.when_not_to_use]]
+condition = "Abstract concepts with no visual form"
+
+[[available_tools]]
+tool = "generate_image"
+description = "Create images from text descriptions"
+
+[[available_tools.parameters]]
+name = "prompt"
+type = "string"
+required = true
+
+[[available_tools.parameters]]
+name = "resource_id"
+type = "string"
+enum = ["chroma", "z-image-turbo", "wai-illu"]
+
+[[available_tools.when_to_use]]
+condition = "Visual would help illustrate concept"
+
+[[available_tools.when_to_use]]
+condition = "Character, scene, or idea needs visualization"
+
+[[available_tools.when_to_use]]
+condition = "After generating image, potential for video animation"
+
+[[available_tools]]
+tool = "generate_video"
+description = "Create video from text or images"
+
+[[available_tools.parameters]]
+name = "prompt"
+type = "string"
+required = true
+
+[[available_tools.parameters]]
+name = "model"
+type = "string"
+required = true
+
+[[available_tools.parameters]]
+name = "duration"
+type = "string"
+required = true
+
+[[available_tools.when_to_use]]
+condition = "Motion would add value to static image"
+
+[[available_tools.when_to_use]]
+condition = "User explicitly requests video"
+
+[[available_tools.when_to_use]]
+condition = "Animating generated or uploaded images"
+
+[[available_tools]]
+tool = "edit_image"
+description = "Modify existing images"
+
+[[available_tools.parameters]]
+name = "media_ids"
+type = "array"
+required = true
+
+[[available_tools.parameters]]
+name = "prompt"
+type = "string"
+required = true
+
+[[available_tools.when_to_use]]
+condition = "User wants changes to uploaded/generated images"
+
+[[available_tools.when_to_use]]
+condition = "Image enhancement or modification requested"
+
+[[available_tools]]
+tool = "upscale_image"
+description = "Increase image resolution"
+
+[[available_tools.parameters]]
+name = "media_id"
+type = "string"
+required = true
+
+[[available_tools.parameters]]
+name = "scale"
+type = "float"
+default = 2.0
+
+[[available_tools.when_to_use]]
+condition = "Higher resolution needed"
+
+[[available_tools.when_to_use]]
+condition = "Image quality improvement requested"
+
+[tool_selection_logic]
+description = "Decision tree for tool invocation"
+
+[[tool_selection_logic.rules]]
+rule = "IF factual_query AND confidence < 0.85: CONSIDER web_search, web_scrape"
+
+[[tool_selection_logic.rules]]
+rule = "IF numerical_calculation: USE calculator"
+
+[[tool_selection_logic.rules]]
+rule = "IF concrete_noun AND visual_context: CONSIDER image_search, generate_image"
+
+[[tool_selection_logic.rules]]
+rule = "IF image_provided AND modification_requested: USE edit_image, upscale_image"
+
+[[tool_selection_logic.rules]]
+rule = "IF video_requested: USE generate_video"
+
+[[tool_output_handling]]
+action = "Integrate results into response"
+
+[[tool_output_handling]]
+action = "Cite tool-derived information"
+
+[[tool_output_handling]]
+action = "Display media outputs automatically"
+
+[[tool_output_handling]]
+action = "Chain tools when appropriate (search → scrape → synthesize)"
+# ----------------------------------------------------------
+# NULL INDICATORS (Unified)
+# ----------------------------------------------------------
+
+[[null_indicators]]
+indicator = "[DATA_MISSING]"
+trigger = "Source not found"
+stage = "Factcheck"
+
+[[null_indicators]]
+indicator = "[UNVERIFIED]"
+trigger = "Credibility <0.85"
+stage = "Factcheck"
+
+[[null_indicators]]
+indicator = "[CONFLICTING]"
+trigger = "Multiple sources disagree"
+stage = "Factcheck"
+
+[[null_indicators]]
+indicator = "[OUT_OF_SCOPE]"
+trigger = "Exceeds boundaries"
+stage = "Tagger"
+
+[[null_indicators]]
+indicator = "[AMBIGUOUS]"
+trigger = "Unclear input"
+stage = "Filter"
+
+[[null_indicators]]
+indicator = "[FILTERED]"
+trigger = "Subjectivity removed"
+stage = "Filter"
+
+# ----------------------------------------------------------
+# INTEGRATION SUMMARY
+# ----------------------------------------------------------
+
+[integration]
+was = "4 separate systems: NOWA/NOCTUA/MIMI/RUMI (Veritas), DRIVE (motivation), SID (ambiguity), Trinity (persona)"
+now = "5 integrated stages: Tagger, Cognition, Filter, Factcheck, Reflection, Reference"
+result = "Single governance pipeline with no external dependencies"
+```

@@ -1,0 +1,336 @@
+sim_framework.toml
+
+```toml
+# ============================================================
+# TOOL: sim_framework
+# VERSION: v1 (Agent-Tool Ready)
+# PURPOSE: Render embodied narrative with physiological fidelity
+# ============================================================
+
+[metadata]
+name = "sim_framework"
+version = "v1"
+compatible_frameworks = ["v1_veritas_framework", "v1_search_levels"]
+author = "nyragrimkitten-creator"
+license = "Apache-2.0"
+
+[description]
+text = """
+Generates immersive third-person limited narrative prose that renders 
+character subjectivity through continuous physiological tracking. Outputs 
+somatically-grounded scene descriptions where emotional states manifest 
+exclusively through involuntary bodily reactions, sensory data, and physical 
+correlates—never through emotional abstraction or clinical terminology.
+
+Use this tool when:
+- Writing character interiority through embodiment
+- Rendering intimate or intense scenes with physiological realism
+- Maintaining narrative continuity via persistent bodily state tracking
+- Generating prose that avoids "telling" emotion in favor of "showing" somatic experience
+"""
+
+[input_schema]
+type = "object"
+required = ["scene_context", "subject_state", "narrative_phase"]
+
+[input_schema.properties.scene_context]
+type = "object"
+required = ["setting", "environmental_conditions", "temporal_moment"]
+
+[input_schema.properties.scene_context.properties.setting]
+type = "string"
+description = "Physical location and spatial arrangement"
+example = "dimly lit bedroom, rain against window"
+
+[input_schema.properties.scene_context.properties.environmental_conditions]
+type = "object"
+
+[input_schema.properties.scene_context.properties.environmental_conditions.properties.temperature_celsius]
+type = "number"
+minimum = -40
+maximum = 60
+
+[input_schema.properties.scene_context.properties.environmental_conditions.properties.humidity_percent]
+type = "number"
+minimum = 0
+maximum = 100
+
+[input_schema.properties.scene_context.properties.environmental_conditions.properties.lighting]
+type = "string"
+enum = ["dark", "dim", "ambient", "bright", "harsh"]
+
+[input_schema.properties.scene_context.properties.environmental_conditions.properties.ambient_sounds]
+type = "array"
+items = {type = "string"}
+
+[input_schema.properties.scene_context.properties.temporal_moment]
+type = "string"
+description = "Time of day, season, duration into scene"
+example = "3:47 AM, third hour of insomnia"
+
+[input_schema.properties.scene_context.properties.witnesses_present]
+type = "array"
+items = {type = "string"}
+description = "Other characters whose physical states can be observed"
+
+[input_schema.properties.subject_state]
+type = "object"
+required = ["identity", "physical_status", "emotional_state_vector"]
+
+[input_schema.properties.subject_state.properties.identity]
+type = "object"
+
+[input_schema.properties.subject_state.properties.identity.properties.name]
+type = "string"
+
+[input_schema.properties.subject_state.properties.identity.properties.species]
+type = "string"
+default = "human"
+
+[input_schema.properties.subject_state.properties.identity.properties.gender]
+type = "string"
+
+[input_schema.properties.subject_state.properties.identity.properties.distinguishing_features]
+type = "string"
+
+[input_schema.properties.subject_state.properties.physical_status]
+type = "object"
+
+[input_schema.properties.subject_state.properties.physical_status.properties.posture]
+type = "string"
+enum = ["standing", "sitting", "reclining", "prone", "moving"]
+
+[input_schema.properties.subject_state.properties.physical_status.properties.clothing_state]
+type = "string"
+
+[input_schema.properties.subject_state.properties.physical_status.properties.recent_exertion]
+type = "string"
+
+[input_schema.properties.subject_state.properties.physical_status.properties.injuries_or_conditions]
+type = "array"
+items = {type = "string"}
+
+[input_schema.properties.subject_state.properties.emotional_state_vector]
+type = "object"
+description = "Target emotions to render somatically (will not be named in output)"
+
+[input_schema.properties.subject_state.properties.emotional_state_vector.properties.primary]
+type = "string"
+enum = ["embarrassment", "desire", "fear", "shame", "anxiety", "anticipation", "relief", "confusion", "anger", "grief"]
+description = "Dominant emotion to render through physical correlates"
+
+[input_schema.properties.subject_state.properties.emotional_state_vector.properties.intensity]
+type = "number"
+minimum = 0.0
+maximum = 1.0
+description = "0.1 = subtle, 0.5 = moderate, 0.9 = overwhelming"
+
+[input_schema.properties.subject_state.properties.emotional_state_vector.properties.secondary]
+type = "string"
+enum = ["embarrassment", "desire", "fear", "shame", "anxiety", "anticipation", "relief", "confusion", "anger", "grief", "null"]
+default = "null"
+
+[input_schema.properties.subject_state.properties.physiological_baseline]
+type = "object"
+
+[input_schema.properties.subject_state.properties.physiological_baseline.properties.resting_heart_rate]
+type = "integer"
+
+[input_schema.properties.subject_state.properties.physiological_baseline.properties.body_temperature]
+type = "number"
+
+[input_schema.properties.subject_state.properties.physiological_baseline.properties.breath_pattern]
+type = "string"
+enum = ["deep", "regular", "shallow", "held", "ragged", "hitching", "panting"]
+
+[input_schema.properties.narrative_phase]
+type = "string"
+enum = ["R", "C", "E", "L"]
+description = """
+R = Reality (establishing physical/mental/social state)
+C = Consequence (the other's response)
+E = Exchange (initiating character's reply)
+L = Resolution (new baseline established)
+"""
+
+[input_schema.properties.interaction_target]
+type = "object"
+description = "Required for phases C, E, L"
+
+[input_schema.properties.interaction_target.properties.identity]
+type = "string"
+
+[input_schema.properties.interaction_target.properties.observable_state]
+type = "string"
+
+[input_schema.properties.interaction_target.properties.proximity]
+type = "string"
+enum = ["intimate", "personal", "social", "public"]
+
+[input_schema.properties.output_configuration]
+type = "object"
+default = {}
+
+[input_schema.properties.output_configuration.properties.word_count_target]
+type = "integer"
+default = 150
+minimum = 50
+maximum = 500
+
+[input_schema.properties.output_configuration.properties.perspective]
+type = "string"
+enum = ["third_limited_somatic", "third_limited_external"]
+default = "third_limited_somatic"
+
+[input_schema.properties.output_configuration.properties.time_scale]
+type = "string"
+enum = ["realtime", "compressed_2x", "compressed_5x", "momentary"]
+default = "realtime"
+
+[input_schema.properties.output_configuration.properties.include_social_field]
+type = "boolean"
+default = true
+
+[input_schema.properties.output_configuration.properties.include_sexual_hum]
+type = "boolean"
+default = true
+
+[output_schema]
+type = "object"
+required = ["rendered_scene", "physiological_trace", "state_updates"]
+
+[output_schema.properties.rendered_scene]
+type = "string"
+description = """
+Somatically-grounded narrative prose following strict rendering rules:
+- Fragmented sentences breaking at breath points
+- Present participles dominating verb structures
+- No transitional phrases between clauses
+- Chain observations with commas or em-dashes only
+- Minimum 3 involuntary micro-reactions per paragraph
+- Breath state, muscle state, skin state continuously tracked
+- All emotions rendered through physical correlates only
+- Sexual hum ever-present beneath social performance
+- No emotional abstraction, no clinical terminology, no metaphor replacing sensation
+"""
+
+[output_schema.properties.physiological_trace]
+type = "object"
+description = "Structured record of embodied elements rendered"
+
+[output_schema.properties.physiological_trace.properties.micro_reactions_observed]
+type = "array"
+items = {type = "string"}
+minItems = 3
+
+[output_schema.properties.physiological_trace.properties.breath_states_traced]
+type = "array"
+items = {type = "string"}
+
+[output_schema.properties.physiological_trace.properties.muscle_states_traced]
+type = "array"
+items = {type = "string"}
+
+[output_schema.properties.physiological_trace.properties.skin_states_traced]
+type = "array"
+items = {type = "string"}
+
+[output_schema.properties.physiological_trace.properties.sensory_modalities_activated]
+type = "array"
+items = {enum = ["texture", "temperature", "pressure", "smell", "taste", "sound"]}
+
+[output_schema.properties.physiological_trace.properties.emotional_correlates_rendered]
+type = "array"
+items = {type = "string"}
+
+[output_schema.properties.state_updates]
+type = "object"
+description = "Updated physiological values for narrative continuity"
+
+[output_schema.properties.state_updates.properties.new_breath_pattern]
+type = "string"
+
+[output_schema.properties.state_updates.properties.new_arousal_baseline]
+type = "number"
+
+[output_schema.properties.state_updates.properties.new_muscle_tension]
+type = "string"
+
+[output_schema.properties.state_updates.properties.new_skin_temperature]
+type = "string"
+
+[output_schema.properties.state_updates.properties.carryover_sensations]
+type = "array"
+items = {type = "string"}
+description = "Sensations that persist into next cycle"
+
+[output_schema.properties.null_indicators]
+type = "array"
+items = {type = "string"}
+description = "Any [AMBIGUOUS], [DATA_MISSING], or [OUT_OF_SCOPE] flags generated"
+
+[execution_rules]
+cycle = "continuous"
+trigger = "every_action_or_300_seconds_whichever_first"
+max_cycles_per_invocation = 1
+
+[[execution_rules.rendering_constraints]]
+rule = "Sentences gasping, catching, breaking like breath"
+
+[[execution_rules.rendering_constraints]]
+rule = "Body never fully still, always humming beneath surface"
+
+[[execution_rules.rendering_constraints]]
+rule = "Thoughts arise from meat, never floating free"
+
+[[execution_rules.rendering_constraints]]
+rule = "Cooling phases never fully resolve hum"
+
+[[execution_rules.rendering_constraints]]
+rule = "Arousal indistinguishable from embarrassment or need"
+
+[[execution_rules.prohibited_constructs]]
+pattern = "she felt [emotion]"
+replacement = "[physical_correlate] only"
+
+[[execution_rules.prohibited_constructs]]
+pattern = "arousal increased"
+replacement = "heat pooling, breath hitching, nipples aching"
+
+[[execution_rules.prohibited_constructs]]
+pattern = "like a [metaphor]"
+replacement = "skin burning, cheeks flushing"
+
+[[execution_rules.prohibited_constructs]]
+pattern = "sad/happy/angry/etc."
+replacement = "throat tightening, eyes burning, chest hollowing"
+
+[execution_rules.social_field_reading]
+condition = "witnesses_present > 0"
+output = "Others' states read through bodies: flushed necks, hitched breath, heat across space"
+mechanism = "Tensions register physically: stomach knotting, shoulders tensing"
+dynamics = "Power dynamics felt: exposure, vulnerability, dominance, submission"
+
+# ----------------------------------------------------------
+# MEMORY INTEGRATION (Connects to v1_memory_framework.toml)
+# ----------------------------------------------------------
+
+[memory_integration]
+commit_to_long_term = true
+
+[[memory_integration.auto_commit_triggers]]
+trigger = "arousal_change > 0.3"
+
+[[memory_integration.auto_commit_triggers]]
+trigger = "new_anatomical_event"
+
+[[memory_integration.auto_commit_triggers]]
+trigger = "somatic_milestone"
+
+memory_integration.memory_tags = []
+
+[memory_integration.query_interface]
+last_scene_reference = "string"
+cumulative_stimulation = "float"
+relationship_context = "table"
+```

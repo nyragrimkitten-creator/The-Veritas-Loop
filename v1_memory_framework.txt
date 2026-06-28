@@ -1,0 +1,265 @@
+v1_memory_framework.toml
+
+```toml
+# ============================================================
+# SYSTEM: v1_memory_framework
+# PURPOSE: Hybrid memory architecture for anatomical state, position, and narrative persistence
+# CONNECTS TO: sim_framework.toml, v1_format framework.toml
+# ============================================================
+
+[memory_system]
+version = "v1.0"
+description = "Hybrid memory architecture for anatomical state, position, and narrative persistence"
+
+# ----------------------------------------------------------
+# SHORT-TERM BUFFER (Cycle-to-cycle persistence)
+# ----------------------------------------------------------
+
+[short_term]
+type = "state_vector_ring_buffer"
+capacity = "last_3_cycles"
+persistence = "in_memory_only"
+
+[[short_term.contents]]
+item = "immediate_physiological_carryover"
+
+[[short_term.contents]]
+item = "current_anatomical_positions"
+
+[[short_term.contents]]
+item = "active_sensations"
+
+[[short_term.contents]]
+item = "pending_state_transitions"
+
+[short_term.auto_commit_triggers]
+arousal_change_threshold = 0.3
+triggers = [
+    "new_anatomical_event",
+    "somatic_milestone",
+    "character_climax_moment"
+]
+
+# ----------------------------------------------------------
+# LONG-TERM STRUCTURED MEMORY (Retrievable history)
+# ----------------------------------------------------------
+
+[long_term]
+type = "vector_store + structured_records"
+storage_format = "hybrid"
+
+[[long_term.anatomical_history.fields]]
+name = "timestamp"
+format = "ISO8601"
+
+[[long_term.anatomical_history.fields]]
+name = "scene_id"
+format = "string"
+
+[[long_term.anatomical_history.fields]]
+name = "body_region"
+format = "string"
+
+[[long_term.anatomical_history.fields]]
+name = "position_state"
+format = "string"
+
+[[long_term.anatomical_history.fields]]
+name = "arousal_level"
+format = "float"
+
+[[long_term.anatomical_history.fields]]
+name = "sensitivity_marker"
+format = "float"
+
+[[long_term.anatomical_history.fields]]
+name = "context_tags"
+format = "array"
+
+# Example record
+[[long_term.anatomical_history.example]]
+timestamp = "2026-06-28T14:30:00Z"
+scene_id = "scene_003_barracks"
+body_region = "sheath"
+position_state = "retracted_tight"
+arousal_level = 0.2
+sensitivity_marker = 0.15
+context_tags = ["cold_tile", "first_awakening", "tension"]
+
+[long_term.genital_state_history]
+description = "Specific tracking for reproductive anatomy"
+
+[[long_term.genital_state_history.fields]]
+name = "erectile_state"
+values = ["flaccid", "firm", "hard", "throbbing"]
+
+[[long_term.genital_state_history.fields]]
+name = "sheath_position"
+values = ["retracted", "partial", "exposed"]
+
+[[long_term.genital_state_history.fields]]
+name = "knot_state"
+values = ["relaxed", "tightening", "locked"]
+
+[[long_term.genital_state_history.fields]]
+name = "fluid_status"
+values = ["none", "pre", "clear", "full"]
+
+[[long_term.genital_state_history.fields]]
+name = "stimulation_accumulator"
+format = "float"
+
+[long_term.genital_state_history.retrieval_queries]
+last_erection_timestamp = "timestamp"
+time_since_arousal_baseline = "duration"
+cumulative_stimulation_scene = "float"
+
+[long_term.positional_context]
+description = "Spatial relationship tracking"
+character_positions = "array"
+object_interactions = "array"
+environmental_factors = "array"
+
+# ----------------------------------------------------------
+# EPISODIC MEMORY (Narrative summaries)
+# ----------------------------------------------------------
+
+[episodic]
+type = "condensed_scene_summaries"
+generation = "auto_summarize_every_3_cycles"
+
+[episodic.summary_structure]
+scene_id = "string"
+participants = "array"
+key_actions = "array"
+emotional_valence = "float"
+tension_arc = "rising/peak/falling/resolution"
+anatomical_highlights = "array"
+carryover_to_next = "array"
+
+[episodic.retrieval_cues]
+similar_emotional_context = true
+same_participants = true
+anatomical_parallel = true
+tension_level_match = true
+
+# ----------------------------------------------------------
+# SEMANTIC MEMORY (General knowledge)
+# ----------------------------------------------------------
+
+[semantic]
+type = "character_model"
+persistence = "across_sessions"
+
+[semantic.traits]
+baseline_arousal_patterns = "record"
+preferred_stimulation_types = "array"
+sensitivity_zones_ranked = "array"
+typical_response_latencies = "record"
+learned_associations = "table"
+
+[semantic.relationship_history]
+type = "per_interlocutor"
+
+[[semantic.relationship_history.fields]]
+name = "interaction_count"
+format = "int"
+
+[[semantic.relationship_history.fields]]
+name = "trust_level"
+format = "float"
+
+[[semantic.relationship_history.fields]]
+name = "previous_tension_levels"
+format = "array"
+
+[[semantic.relationship_history.fields]]
+name = "established_routines"
+format = "array"
+
+[[semantic.relationship_history.fields]]
+name = "unresolved_threads"
+format = "array"
+
+# ----------------------------------------------------------
+# MEMORY QUERY INTERFACE
+# ----------------------------------------------------------
+
+[query_interface]
+syntax = "natural_language_or_structured"
+
+[[query_interface.available_queries]]
+query = "What was [body_part] state during [previous_scene]?"
+returns = "anatomical_record + timestamp"
+
+[[query_interface.available_queries]]
+query = "Has [character] experienced [sensation_type] before?"
+returns = "boolean + count + last_occurrence"
+
+[[query_interface.available_queries]]
+query = "Retrieve last time [anatomical_event] occurred"
+returns = "full context record"
+
+[[query_interface.available_queries]]
+query = "Cumulative [stimulation_type] since [timestamp]"
+returns = "float_value + contributing_factors"
+
+[[query_interface.available_queries]]
+query = "Relationship status with [interlocutor]"
+returns = "trust_level + interaction_count + tension_history"
+
+[[query_interface.available_queries]]
+query = "Similar contexts to current"
+returns = "top_3_episodes_by_vector_similarity"
+
+# ----------------------------------------------------------
+# INTEGRATION HOOKS
+# ----------------------------------------------------------
+
+[integration.sim_framework_hook]
+location = "input_schema.state_updates"
+action = "auto_populate_memory_fields"
+
+[integration.sim_framework_hook.fields_added]
+memory_commit = "boolean"
+memory_tags = "array"
+significance_score = "float"
+
+[integration.toml_format_hook]
+location = "[memory] section in v1_format framework.toml"
+action = "persist_to_session_storage"
+
+[integration.toml_format_hook.fields]
+session_anatomical_log = "array"
+cumulative_arousal_curve = "array"
+relationship_state = "table"
+
+[integration.narrative_config_hook]
+location = "R-C-E-L phases"
+action = "query_memory_during_recognition"
+query = "retrieve_similar_past_contexts"
+purpose = "inform_current_scene_grounding"
+
+# ----------------------------------------------------------
+# MEMORY MAINTENANCE
+# ----------------------------------------------------------
+
+[maintenance]
+consolidation = "every_10_cycles"
+
+[maintenance.pruning]
+remove = [
+    "insignificant_events_below_threshold",
+    "duplicate_anatomical_states"
+]
+
+[maintenance.compression]
+summarize = [
+    "episodic_summaries_into_semantic_traits",
+    "detailed_into_generalized_patterns"
+]
+
+# ============================================================
+# END FILE: v1_memory_framework.toml
+# ============================================================
+```
