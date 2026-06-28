@@ -241,17 +241,44 @@ body.alwaysHex .hexagon .hex {
 </div>
 
 <script>
-// --- MISSING VARIABLES & SETUP ---
+// --- DATA STORAGE WITH LOCALSTORAGE ---
 var pages = [[]]; 
-var pageNames = [""]; // <-- ADD THIS LINE
+var pageNames = [""];
 var currentPage = 0;
 var alwaysHex = false;
 var itemsPerRow = 4;
 
-// --- MISSING PAGINATION FUNCTIONS ---
+// NEW: Save data to localStorage
+function saveData() {
+    localStorage.setItem('hexlib_pages', JSON.stringify(pages));
+    localStorage.setItem('hexlib_pageNames', JSON.stringify(pageNames));
+    localStorage.setItem('hexlib_currentPage', currentPage);
+}
+
+// NEW: Load data from localStorage
+function loadData() {
+    var savedPages = localStorage.getItem('hexlib_pages');
+    var savedNames = localStorage.getItem('hexlib_pageNames');
+    var savedCurrent = localStorage.getItem('hexlib_currentPage');
+    
+    if (savedPages) {
+        pages = JSON.parse(savedPages);
+    }
+    if (savedNames) {
+        pageNames = JSON.parse(savedNames);
+    }
+    if (savedCurrent !== null) {
+        currentPage = parseInt(savedCurrent);
+        if (currentPage >= pages.length) currentPage = pages.length - 1;
+        if (currentPage < 0) currentPage = 0;
+    }
+}
+
+// --- PAGINATION FUNCTIONS ---
 function prevPage() {
     if (currentPage > 0) {
         currentPage--;
+        saveData(); // Save current page index
         renderCurrentPage();
     }
 }
@@ -259,27 +286,29 @@ function prevPage() {
 function nextPage() {
     if (currentPage < pages.length - 1) {
         currentPage++;
+        saveData(); // Save current page index
         renderCurrentPage();
     }
 }
 
 function updatePageName(val) {
     pageNames[currentPage] = val;
+    saveData(); // Save when name changes
 }
 
 function updatePageInfo() {
     document.getElementById('pageNumber').textContent = (currentPage + 1);
     document.getElementById('totalPages').textContent = pages.length;
     
-    // Load the saved name for the current page into the input box
     var nameInput = document.getElementById('pageName');
     nameInput.value = pageNames[currentPage] || "";
 }
 
 function addPage() {
     pages.push([]);
-    pageNames.push(""); // Create a blank name slot for the new page
+    pageNames.push("");
     currentPage = pages.length - 1;
+    saveData(); // Save new page
     renderCurrentPage();
 }
 
@@ -287,8 +316,9 @@ function deletePage() {
     if (pages.length > 1) {
         if (confirm('Delete current page?')) {
             pages.splice(currentPage, 1);
-            pageNames.splice(currentPage, 1); // Delete the name slot too
+            pageNames.splice(currentPage, 1);
             if (currentPage >= pages.length) currentPage = pages.length - 1;
+            saveData(); // Save after delete
             renderCurrentPage();
         }
     } else {
@@ -296,7 +326,7 @@ function deletePage() {
     }
 }
 
-// --- MISSING SHADOW FUNCTION ---
+// --- SHADOW FUNCTION ---
 function darkenColor(col, amt) {
     var usePound = false;
     if (col[0] == "#") { col = col.slice(1); usePound = true; }
@@ -337,12 +367,10 @@ function renderCurrentPage() {
             
             if (idx < hexes.length) {
                 if (hexes[idx] === null) {
-                    // Create an empty placeholder slot to prevent the grid from nudging
                     var empty = document.createElement('div');
                     empty.className = 'hexagon placeholder';
                     empty.dataset.index = idx;
                     
-                    // Allow dragging other colors INTO this empty gap
                     empty.addEventListener('dragover', function(e) {
                         e.preventDefault();
                         e.dataTransfer.dropEffect = 'move';
@@ -355,19 +383,18 @@ function renderCurrentPage() {
                         
                         if (!isNaN(draggedIdx) && draggedIdx !== targetIdx) {
                             pages[currentPage][targetIdx] = pages[currentPage][draggedIdx];
-                            pages[currentPage][draggedIdx] = null; // Leave a gap where it came from
+                            pages[currentPage][draggedIdx] = null;
                             
-                            // Clean up trailing empty spaces at the very end
                             while(pages[currentPage].length > 0 && pages[currentPage][pages[currentPage].length - 1] === null) {
                                 pages[currentPage].pop();
                             }
+                            saveData(); // Save after drop
                             renderCurrentPage();
                         }
                     });
                     
                     row.appendChild(empty);
                 } else {
-                    // Note: We are now passing `idx` into createHexagon
                     row.appendChild(createHexagon(hexes[idx], idx)); 
                 }
             } else if (idx === hexes.length) {
@@ -384,7 +411,6 @@ function renderCurrentPage() {
         }
     }
     
-    // Empty page
     if (hexes.length === 0) {
         var row = document.createElement('div');
         row.className = 'honeycomb-row';
@@ -431,11 +457,13 @@ function toggleCompact() {
 function toggleHex(cb) {
     alwaysHex = cb.checked;
     document.body.classList.toggle('alwaysHex', alwaysHex);
+    localStorage.setItem('hexlib_alwaysHex', alwaysHex); // Save preference
 }
 
 function clearAll() {
     if (confirm('Clear all colors on this page?')) {
         pages[currentPage] = [];
+        saveData(); // Save after clear
         renderCurrentPage();
     }
 }
@@ -443,7 +471,6 @@ function clearAll() {
 function exportAll() {
     var allHexes = [];
     pages.forEach(function(page, i) {
-        // If a name exists, format it nicely. Otherwise, leave it blank.
         var nameStr = pageNames[i] ? " (" + pageNames[i] + ")" : "";
         allHexes.push('--- Page ' + (i + 1) + nameStr + ' ---');
         allHexes = allHexes.concat(page);
@@ -456,7 +483,6 @@ function closeExport() {
     document.getElementById('exportBox').style.display = 'none';
 }
 
-// Updated to accept the array index
 function createHexagon(h, idx) {
     var d = document.createElement('div');
     d.className = 'hexagon';
@@ -464,7 +490,7 @@ function createHexagon(h, idx) {
     d.style.boxShadow = 'inset 0 0 20px ' + darkenColor(h, 30);
     d.draggable = true;
     d.dataset.hex = h;
-    d.dataset.index = idx; // Store index to fix duplicate color drag bug
+    d.dataset.index = idx;
     
     var label = document.createElement('span');
     label.className = 'hex';
@@ -477,14 +503,13 @@ function createHexagon(h, idx) {
     xBtn.onclick = function(e) {
         e.stopPropagation();
         
-        // Replace with null instead of splicing to prevent layout ripple
-        pages[currentPage][idx] = null; 
+        pages[currentPage][idx] = null;
         
-        // If they delete the very last item, trim the array so the '+' box pulls back
         while(pages[currentPage].length > 0 && pages[currentPage][pages[currentPage].length - 1] === null) {
             pages[currentPage].pop();
         }
         
+        saveData(); // Save after delete
         renderCurrentPage();
     };
     d.appendChild(xBtn);
@@ -504,7 +529,6 @@ function createHexagon(h, idx) {
     d.addEventListener('dragstart', function(e) {
         d.classList.add('dragging');
         e.dataTransfer.effectAllowed = 'move';
-        // Send the Index number, NOT the hex color
         e.dataTransfer.setData('text/plain', idx); 
     });
     
@@ -523,16 +547,15 @@ function createHexagon(h, idx) {
         var targetIdx = parseInt(this.dataset.index);
         
         if (!isNaN(draggedIdx) && draggedIdx !== targetIdx) {
-            // Swap based on absolute index
             var temp = pages[currentPage][draggedIdx];
             pages[currentPage][draggedIdx] = pages[currentPage][targetIdx];
             pages[currentPage][targetIdx] = temp;
             
-            // Trim nulls just in case you swapped a blank space to the end
             while(pages[currentPage].length > 0 && pages[currentPage][pages[currentPage].length - 1] === null) {
                 pages[currentPage].pop();
             }
             
+            saveData(); // Save after swap
             renderCurrentPage();
         }
     });
@@ -562,6 +585,7 @@ function addBulk() {
     });
     
     if (added > 0) {
+        saveData(); // Save after adding
         renderCurrentPage();
         closeBox();
     } else {
@@ -584,8 +608,19 @@ window.addEventListener('resize', function() {
     renderCurrentPage();
 });
 
-// Init
+// Init - LOAD DATA FIRST, then render
+loadData();
 loadWallpaper();
+
+// Load "always show hex" preference
+var savedAlwaysHex = localStorage.getItem('hexlib_alwaysHex');
+if (savedAlwaysHex === 'true') {
+    alwaysHex = true;
+    document.body.classList.add('alwaysHex');
+    var cb = document.querySelector('input[type="checkbox"]');
+    if (cb) cb.checked = true;
+}
+
 renderCurrentPage();
 </script>
 </body>
