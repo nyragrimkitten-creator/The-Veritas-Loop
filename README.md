@@ -140,8 +140,15 @@ See [docs/quickstart.md](docs/quickstart.md) for complete setup.
 
 ## Documentation
 
-- [Project Vision](PROJECT.md) - Philosophy and design goals
-- [Quick Start Guide](QUICKSTART.md) - Installation and first usage
+- [Project Vision](project.md) - Philosophy and design goals
+- [Quick Start Guide](quickstart.md) - Installation and first usage
+- [API Reference](none setup) - Configuration schema details
+- [Template Guide](v1_format_framework) - 8 output format specifications
+
+## License
+
+Apache 2.0 - See [LICENSE](LICENSE)
+```
 - [API Reference](none setup) - Configuration schema details
 - [Template Guide](v1_format_framework) - 8 output format specifications
 
